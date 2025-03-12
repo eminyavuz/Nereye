@@ -1,7 +1,7 @@
 package com.emin.nereye.enumeration;
 
 
-public enum fuel_type {
+public enum FuelType {
     Elektrikli,
     Benzinli,
     LPG,

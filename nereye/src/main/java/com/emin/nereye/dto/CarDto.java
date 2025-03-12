@@ -3,7 +3,7 @@ package com.emin.nereye.dto;
 import com.emin.nereye.entity.Brand;
 import com.emin.nereye.entity.Car;
 import com.emin.nereye.entity.Color;
-import com.emin.nereye.enumeration.fuel_type;
+import com.emin.nereye.enumeration.FuelType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CarDto {
-    private fuel_type fuel_type;
+    private FuelType FuelType;
     private int km;
     private boolean gear_type;
     private int capacity;
@@ -30,7 +30,7 @@ public class CarDto {
         dto.setYear(car.getYear());
         dto.setBrand(car.getBrand());
         dto.setColor(car.getColor());
-        dto.setFuel_type(car.getFuel_type());
+        dto.setFuelType(car.getFuel_type());
       return dto;
 
     }
@@ -41,7 +41,7 @@ public class CarDto {
         car.setYear(dto.getYear());
         car.setBrand(dto.getBrand());
         car.setColor(dto.getColor());
-        car.setFuel_type(dto.getFuel_type());
+        car.setFuel_type(dto.getFuelType());
         car.setGear_type(dto.gear_type);
         return car;
     }
@@ -49,14 +49,14 @@ public class CarDto {
     @Override
     public String toString() {
         return "CarDto{" +
-                "fuel_type=" + fuel_type +
+                "fuel_type=" + FuelType +
                 ", km=" + km +
                 ", gear_type=" + gear_type +
                 ", capacity=" + capacity +
                 ", Model='" + Model + '\'' +
                 ", year=" + year +
                 ", brand=" + brand.getBrand_name() +
-                ", color=" + color.getColor_name() +
+                ", color=" + color.getColor_name()   +
                 '}';
     }
 }

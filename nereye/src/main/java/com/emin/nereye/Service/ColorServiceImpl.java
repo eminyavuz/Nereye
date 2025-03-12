@@ -65,8 +65,8 @@ public class ColorServiceImpl implements ColorService {
 
     @Override
     @Transactional
-    public void save(Color color) {
-        colorRepository.save(color);
+    public Color save(Color color) {
+        return colorRepository.save(color);
     }
 
     @Override

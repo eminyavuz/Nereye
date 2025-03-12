@@ -9,7 +9,7 @@ public interface BrandService {
     List<Brand> findAll();
     Brand findById(int theId);
     void deleteById(int theId);
-    void save(Brand brand);
+   Brand save(Brand brand);
     void update(int theId,BrandDto dto);
     BrandDto get(Brand brand);
 List<BrandDto>  getAll(List<Brand> brandList);

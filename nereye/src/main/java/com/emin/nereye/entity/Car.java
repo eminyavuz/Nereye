@@ -1,6 +1,6 @@
 package com.emin.nereye.entity;
 
-import com.emin.nereye.enumeration.fuel_type;
+import com.emin.nereye.enumeration.FuelType;
 import jakarta.persistence.*;
 
 @Entity
@@ -12,7 +12,7 @@ public class Car {
     private Integer id;
     @Enumerated(EnumType.STRING)
     @Column(name = "fuel_type")
-    private fuel_type fuel_type;
+    private FuelType FuelType;
     @Column(name = "km")
     private int km;
     @Column(name = "gear_type")
@@ -23,6 +23,8 @@ public class Car {
     private String model;
     @Column(name = "year")
     private int year;
+    @Column(name="img_url")
+    private String img_url;
     @ManyToOne(fetch = FetchType.EAGER, cascade =
             {
                     CascadeType.REFRESH,
@@ -48,8 +50,8 @@ public class Car {
     public Car() {
     }
 
-    public Car(com.emin.nereye.enumeration.fuel_type fuel_type, int km, boolean gear_type, int capacity, String model, int year) {
-        this.fuel_type = fuel_type;
+    public Car(FuelType FuelType, int km, boolean gear_type, int capacity, String model, int year) {
+        this.FuelType = FuelType;
         this.km = km;
         this.gear_type = gear_type;
         this.capacity = capacity;
@@ -69,12 +71,12 @@ public class Car {
         this.id = id;
     }
 
-    public fuel_type getFuel_type() {
-        return fuel_type;
+    public FuelType getFuel_type() {
+        return FuelType;
     }
 
-    public void setFuel_type(fuel_type fuel_type) {
-        this.fuel_type = fuel_type;
+    public void setFuel_type(FuelType FuelType) {
+        this.FuelType = FuelType;
     }
 
     public int getKm() {

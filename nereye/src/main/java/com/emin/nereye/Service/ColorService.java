@@ -12,7 +12,7 @@ public interface ColorService {
 
     void deleteById(int theId);
 
-    void save(Color color);
+   Color save(Color color);
 
     void update(ColorDto color, int theId);
     ColorDto getColor(Color color);

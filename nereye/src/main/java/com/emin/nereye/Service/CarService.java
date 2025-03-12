@@ -11,7 +11,7 @@ public interface CarService {
     List<Car> findAll();
     Car findById(Integer theId);
     void deleteById(Integer theId);
-    void save(Car car);
+   Car save(Car car);
     void update(Integer theId,CarDto dto);
     CarDto getCar(Car car);
     List<CarDto> getAll(List<Car> cars);

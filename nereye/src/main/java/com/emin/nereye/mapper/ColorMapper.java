@@ -1,8 +1,8 @@
 package com.emin.nereye.mapper;
 
-import com.emin.nereye.dto.ColorDtoo.ColorCreateDto;
-import com.emin.nereye.dto.ColorDtoo.ColorReadDto;
-import com.emin.nereye.dto.ColorDtoo.ColorUpdateDto;
+import com.emin.nereye.dto.ColorDto.ColorCreateDto;
+import com.emin.nereye.dto.ColorDto.ColorReadDto;
+import com.emin.nereye.dto.ColorDto.ColorUpdateDto;
 import com.emin.nereye.entity.Color;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

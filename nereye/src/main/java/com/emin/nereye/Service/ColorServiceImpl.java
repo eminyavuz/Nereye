@@ -1,7 +1,10 @@
 package com.emin.nereye.Service;
 
-import com.emin.nereye.dto.ColorDto;
+import com.emin.nereye.dto.ColorDto.ColorCreateDto;
+import com.emin.nereye.dto.ColorDto.ColorReadDto;
+import com.emin.nereye.dto.ColorDto.ColorUpdateDto;
 import com.emin.nereye.entity.Color;
+import com.emin.nereye.mapper.ColorMapper;
 import com.emin.nereye.repository.ColorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,10 +18,12 @@ import java.util.Optional;
 public class ColorServiceImpl implements ColorService {
 
     private ColorRepository colorRepository;
-
+private  final ColorMapper colorMapper;
     @Autowired
-    public ColorServiceImpl(ColorRepository colorRepository) {
+    public ColorServiceImpl(ColorRepository colorRepository,ColorMapper colorMapper) {
         this.colorRepository = colorRepository;
+        this.colorMapper=colorMapper;
+
     }
 
     @Override
@@ -40,18 +45,17 @@ public class ColorServiceImpl implements ColorService {
 
     }
 
-    public ColorDto getColor(Color color) {
-        ColorDto dto = new ColorDto();
-        dto.colorToColorDto(color);
-        return dto;
+    public ColorReadDto getColor(Color color) {
+
+        return colorMapper.colorToColorReadDto(color);
     }
 
     @Override
-    public List<ColorDto> getAll(List<Color> colors) {
-       List<ColorDto> dtoList= new ArrayList<>();
-       ColorDto dto= new ColorDto();
+    public List<ColorReadDto> getAll(List<Color> colors) {
+       List<ColorReadDto> dtoList= new ArrayList<>();
+       ColorReadDto dto= new ColorReadDto();
        for(Color c : colors){
-           dto.colorToColorDto(c);
+           dto=colorMapper.colorToColorReadDto(c);
            dtoList.add(dto);
        }
        return dtoList;
@@ -65,13 +69,15 @@ public class ColorServiceImpl implements ColorService {
 
     @Override
     @Transactional
-    public Color save(Color color) {
-        return colorRepository.save(color);
+    public ColorCreateDto save(Color color) {
+        colorRepository.save(color);
+        return colorMapper.colorToColorCreateDto(color);
     }
 
+
     @Override
-    public void update(ColorDto dto, int theId) {
-     Color color= dto.dtoToColor(dto,findById(theId));
+    public void update(ColorUpdateDto dto, int theId) {
+     Color color=colorMapper.colorUpdateDtoToColor(dto) ;
     colorRepository.save(color);
     }
 }

@@ -1,4 +1,4 @@
-package com.emin.nereye.dto.AdvertisementDtoo;
+package com.emin.nereye.dto.AdvertisementDto;
 
 import com.emin.nereye.entity.Car;
 import lombok.AllArgsConstructor;
@@ -10,10 +10,9 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-
-public class AdvertisementReadDto {
+public class AdvertisementCreateDto {
     private  String  daily_price;
     private  String deposit ;
     private  String  location;
-    private Car car;
+     private Car car;
 }

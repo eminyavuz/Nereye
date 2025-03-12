@@ -1,8 +1,11 @@
 package com.emin.nereye.Service;
 
-import com.emin.nereye.dto.BrandDto;
+import com.emin.nereye.dto.BrandDto.BrandReadDto;
+import com.emin.nereye.dto.BrandDto.BrandUpdateDto;
 import com.emin.nereye.entity.Brand;
+import com.emin.nereye.mapper.BrandMapper;
 import com.emin.nereye.repository.BrandRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,8 +17,11 @@ import java.util.Optional;
 public class BrandServiceImpl implements BrandService
 {
     private BrandRepository brandRepository;
-    public BrandServiceImpl(BrandRepository brandRepository){
+    private  final BrandMapper brandMapper;
+    @Autowired
+    public BrandServiceImpl(BrandRepository brandRepository, BrandMapper brandMapper){
         this.brandRepository=brandRepository;
+        this.brandMapper=brandMapper;
 
     }
 
@@ -55,27 +61,26 @@ public class BrandServiceImpl implements BrandService
     }
 
     @Override
-    public void update(int theId,BrandDto dto) {
+    public void update(int theId, BrandUpdateDto dto) {
       Brand brand= findById(theId);
-      brand=dto.dtoToBrand(brand,dto);
+      brand=brandMapper.brandUpdateDtoToBrand(dto);
         brandRepository.save(brand);
 
+
     }
 
     @Override
-    public BrandDto get(Brand brand) {
-        BrandDto dto= new BrandDto();
-        dto.BrandToBrandDto(brand);
+    public BrandReadDto get(Brand brand) {
 
-        return dto;
+        return brandMapper.brandToBrandReadDto(brand);
     }
 
     @Override
-    public List<BrandDto> getAll(List<Brand> brandList) {
-        List<BrandDto> dtoList= new ArrayList<>();
-        BrandDto dto= new BrandDto();
+    public List<BrandReadDto> getAll(List<Brand> brandList) {
+        List<BrandReadDto> dtoList= new ArrayList<>();
+        BrandReadDto dto= new BrandReadDto();
         for( Brand b: brandList){
-            dto.BrandToBrandDto(b);
+            dto=brandMapper.brandToBrandReadDto(b);
             dtoList.add(dto);
         }
         return  dtoList;

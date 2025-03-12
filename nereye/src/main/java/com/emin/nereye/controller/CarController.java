@@ -3,7 +3,8 @@ package com.emin.nereye.controller;
 import com.emin.nereye.Service.BrandService;
 import com.emin.nereye.Service.CarService;
 import com.emin.nereye.Service.ColorService;
-import com.emin.nereye.dto.CarDto;
+import com.emin.nereye.dto.CarDto.CarReadDto;
+import com.emin.nereye.dto.CarDto.CarUpdateDto;
 import com.emin.nereye.entity.Car;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -26,17 +27,14 @@ public class CarController {
         this.colorService = colorService;
     }
 @GetMapping("/carlist")
-    public List<CarDto> carList(){
-        List<CarDto> cars= carService.getAll(carService.findAll());
+    public List<CarReadDto> carList(){
+        List<CarReadDto> cars= carService.getAll(carService.findAll());
 return cars;
 }
 @PutMapping("/update-car/{id}")
-public Car updateCar(@PathVariable Integer id, CarDto car){
-        Car theCar= carService.findById(id);
-        CarDto dto= new CarDto();
-     theCar=dto.dtoToCar(theCar,car);
-       theCar=carService.save(theCar);
-       return theCar;
+public void updateCar(@PathVariable Integer id, CarUpdateDto car){
+        carService.update(id,car);
+
 
 }
 @PostMapping("/save")

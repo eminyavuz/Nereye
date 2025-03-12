@@ -1,4 +1,4 @@
-package com.emin.nereye.dto.BrandDtoo;
+package com.emin.nereye.dto.ColorDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,6 +9,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class BrandUpdateDto {
-    private String brand_name;
+public class ColorUpdateDto {
+    private  String color_name;
+    private String color_code;
+
 }

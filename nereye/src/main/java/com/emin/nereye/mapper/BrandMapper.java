@@ -1,8 +1,8 @@
 package com.emin.nereye.mapper;
 
-import com.emin.nereye.dto.BrandDtoo.BrandCreateDto;
-import com.emin.nereye.dto.BrandDtoo.BrandReadDto;
-import com.emin.nereye.dto.BrandDtoo.BrandUpdateDto;
+import com.emin.nereye.dto.BrandDto.BrandCreateDto;
+import com.emin.nereye.dto.BrandDto.BrandReadDto;
+import com.emin.nereye.dto.BrandDto.BrandUpdateDto;
 import com.emin.nereye.entity.Brand;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

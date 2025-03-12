@@ -1,8 +1,8 @@
 package com.emin.nereye.mapper;
 
-import com.emin.nereye.dto.CarDtoo.CarCreateDto;
-import com.emin.nereye.dto.CarDtoo.CarReadDto;
-import com.emin.nereye.dto.CarDtoo.CarUpdateDto;
+import com.emin.nereye.dto.CarDto.CarCreateDto;
+import com.emin.nereye.dto.CarDto.CarReadDto;
+import com.emin.nereye.dto.CarDto.CarUpdateDto;
 import com.emin.nereye.entity.Car;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

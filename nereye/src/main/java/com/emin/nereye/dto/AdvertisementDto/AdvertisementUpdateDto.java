@@ -1,4 +1,4 @@
-package com.emin.nereye.dto.AdvertisementDtoo;
+package com.emin.nereye.dto.AdvertisementDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

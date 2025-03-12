@@ -1,8 +1,6 @@
-package com.emin.nereye.dto.CarDtoo;
+package com.emin.nereye.dto.CarDto;
 
-import com.emin.nereye.entity.Brand;
 import com.emin.nereye.entity.Color;
-import com.emin.nereye.enumeration.FuelType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

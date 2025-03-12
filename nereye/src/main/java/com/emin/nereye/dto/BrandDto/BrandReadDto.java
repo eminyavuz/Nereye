@@ -1,4 +1,4 @@
-package com.emin.nereye.dto.BrandDtoo;
+package com.emin.nereye.dto.BrandDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,8 +9,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-
-public class BrandCreateDto {
-    private  String brand_name;
-
+public class BrandReadDto {
+    private String brand_name;
 }

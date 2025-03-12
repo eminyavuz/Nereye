@@ -1,8 +1,8 @@
 package com.emin.nereye.mapper;
 
-import com.emin.nereye.dto.AdvertisementDtoo.AdvertisementCreateDto;
-import com.emin.nereye.dto.AdvertisementDtoo.AdvertisementReadDto;
-import com.emin.nereye.dto.AdvertisementDtoo.AdvertisementUpdateDto;
+import com.emin.nereye.dto.AdvertisementDto.AdvertisementCreateDto;
+import com.emin.nereye.dto.AdvertisementDto.AdvertisementReadDto;
+import com.emin.nereye.dto.AdvertisementDto.AdvertisementUpdateDto;
 import com.emin.nereye.entity.Advertisement;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

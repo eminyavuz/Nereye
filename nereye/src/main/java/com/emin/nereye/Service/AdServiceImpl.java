@@ -1,7 +1,10 @@
 package com.emin.nereye.Service;
 
-import com.emin.nereye.dto.AdvertisementDto;
+import com.emin.nereye.dto.AdvertisementDto.AdvertisementCreateDto;
+import com.emin.nereye.dto.AdvertisementDto.AdvertisementReadDto;
+import com.emin.nereye.dto.AdvertisementDto.AdvertisementUpdateDto;
 import com.emin.nereye.entity.Advertisement;
+import com.emin.nereye.mapper.AdvertisementMapper;
 import com.emin.nereye.repository.AdRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,9 +18,11 @@ import java.util.Optional;
 public class AdServiceImpl implements AdService {
 
 private AdRepository adRepository;
+private final AdvertisementMapper advertisementMapper;
 @Autowired
-public AdServiceImpl(AdRepository adRepository){
+public AdServiceImpl(AdRepository adRepository,AdvertisementMapper advertisementMapper){
     this.adRepository=adRepository;
+    this.advertisementMapper=advertisementMapper;
 }
     @Override
     public List<Advertisement> findAll() {
@@ -47,31 +52,32 @@ adRepository.deleteById(theId);
 
     @Override
     @Transactional
-    public void save(Advertisement ad) {
+    public AdvertisementCreateDto save(Advertisement ad) {
 adRepository.save(ad);
+return advertisementMapper.adToAdCreateDto(ad);
     }
 
     @Override
-    public void update(int theId,AdvertisementDto dto) {
+    public AdvertisementUpdateDto update(int theId, AdvertisementUpdateDto dto) {
     Advertisement ad= findById(theId);
-    ad=dto.dtoToAd(ad,dto);
+    ad=advertisementMapper.adUpdateDtoToAd(dto);
     adRepository.save(ad);
+    return advertisementMapper.adToAdUpdateDto(ad);
 
     }
 
     @Override
-    public AdvertisementDto getAd(Advertisement ad) {
-    AdvertisementDto dto= new AdvertisementDto();
-    dto.adtoAdDto(ad);
-        return dto;
+    public AdvertisementReadDto getAd(Advertisement ad) {
+
+    return advertisementMapper.adToAdReadDto(ad);
     }
 
     @Override
-    public List<AdvertisementDto> getAll(List<Advertisement> adList) {
-    List<AdvertisementDto> dtoList= new ArrayList<>();
-    AdvertisementDto dto= null;
+    public List<AdvertisementReadDto> getAll(List<Advertisement> adList) {
+    List<AdvertisementReadDto> dtoList= new ArrayList<>();
+    AdvertisementReadDto dto= null;
     for (Advertisement ad : adList){
-        dto.adtoAdDto(ad);
+        dto= advertisementMapper.adToAdReadDto(ad);
         dtoList.add(dto);
     }
     return dtoList;

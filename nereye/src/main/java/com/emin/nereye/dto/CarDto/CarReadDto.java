@@ -1,4 +1,4 @@
-package com.emin.nereye.dto.CarDtoo;
+package com.emin.nereye.dto.CarDto;
 
 import com.emin.nereye.entity.Brand;
 import com.emin.nereye.entity.Color;
@@ -12,14 +12,13 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CarCreateDto {
+public class CarReadDto {
     private FuelType fuel_type;
     private int km;
     private boolean gear_type;
     private  int capacity;
-    private  String model;
+    private  String Model;
     private  int year;
     private Brand brand;
     private Color color;
 }
-

@@ -1,15 +1,15 @@
 package com.emin.nereye.mapper;
 
-import com.emin.nereye.dto.userDto.UserCreateDto;
-import com.emin.nereye.dto.userDto.UserReadDto;
-import com.emin.nereye.dto.userDto.UserUpdateDto;
-import com.emin.nereye.entity.User;
+import com.emin.nereye.domain.user.api.userDto.UserCreateDto;
+import com.emin.nereye.domain.user.api.userDto.UserReadDto;
+import com.emin.nereye.domain.user.api.userDto.UserUpdateDto;
+import com.emin.nereye.domain.user.impl.User;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-03-12T17:53:38+0300",
+    date = "2025-03-14T20:46:35+0300",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 21.0.1 (Oracle Corporation)"
 )
 @Component

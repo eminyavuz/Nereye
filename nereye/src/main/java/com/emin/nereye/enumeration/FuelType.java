@@ -5,7 +5,7 @@ public enum FuelType {
     Elektrikli,
     Benzinli,
     LPG,
-Dizel
+    Dizel
 
 
 }

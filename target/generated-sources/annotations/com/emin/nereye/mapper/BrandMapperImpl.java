@@ -1,15 +1,15 @@
 package com.emin.nereye.mapper;
 
-import com.emin.nereye.dto.BrandDto.BrandCreateDto;
-import com.emin.nereye.dto.BrandDto.BrandReadDto;
-import com.emin.nereye.dto.BrandDto.BrandUpdateDto;
-import com.emin.nereye.entity.Brand;
+import com.emin.nereye.domain.brand.api.brandDto.BrandCreateDto;
+import com.emin.nereye.domain.brand.api.brandDto.BrandReadDto;
+import com.emin.nereye.domain.brand.api.brandDto.BrandUpdateDto;
+import com.emin.nereye.domain.brand.impl.Brand;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-03-12T17:53:38+0300",
+    date = "2025-03-14T20:46:36+0300",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 21.0.1 (Oracle Corporation)"
 )
 @Component

@@ -2,6 +2,7 @@ package com.emin.nereye.domain.user.api.userDto;
 
 import com.emin.nereye.enumeration.Role;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -9,6 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class UserCreateDto {
     private String user_name;
     private String password;

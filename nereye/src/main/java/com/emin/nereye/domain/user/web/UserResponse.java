@@ -1,6 +1,7 @@
-package com.emin.nereye.domain.user.api.userDto;
+package com.emin.nereye.domain.user.web;
 
 import com.emin.nereye.enumeration.Role;
+import com.emin.nereye.response.BaseResponse;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,11 +11,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class UserReadDto {
+public class UserResponse extends BaseResponse {
     private String user_name;
-    private String email;
-    private String phone_number;
     private String first_name;
     private String last_name;
+    private  String phone_number;
+    private  String email;
     private Role role;
+    private int id;
 }

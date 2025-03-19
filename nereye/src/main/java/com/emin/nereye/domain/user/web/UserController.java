@@ -25,8 +25,28 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public UserReadDto getUser(@PathVariable int id) {
+    public UserResponse getUser(@PathVariable int id) {
 
-        return userService.findById(id);
+        return  toCreateDto(userService.findById(id);
+    }
+    public static UserCreateDto toCreateDto (UserRequest req){
+        return  UserCreateDto.builder()
+                .first_name(req.getFirst_name())
+                .last_name(req.getLast_name())
+                .user_name(req.getUser_name())
+                .email(req.getEmail())
+                .password(req.getPassword())
+                .build();
+    }
+    public static UserResponse toResponse(UserCreateDto dto){
+        return UserResponse.builder()
+                .phone_number(dto.getPhone_number())
+                .role(dto.getRole())
+                .email(dto.getEmail())
+                .first_name(dto.getFirst_name())
+                .last_name(dto.getLast_name())
+                .user_name(dto.getUser_name())
+                .phone_number(dto.getPhone_number())
+                .build();
     }
 }

@@ -5,15 +5,15 @@ import java.util.List;
 public interface BrandService {
     List<Brand> findAll();
 
-    BrandDto findById(int theId);
+    Brand findById(int theId);
 
     void deleteById(int theId);
 
-    Brand save(Brand brand);
+    void save(BrandDto brand);
 
-    void update(int theId, BrandDto dto);
+    BrandDto update(int theId, BrandDto dto);
 
-    BrandDto get(Brand brand);
+    BrandDto getBrand(int id);
 
     List<BrandDto> getAll(List<Brand> brandList);
 }

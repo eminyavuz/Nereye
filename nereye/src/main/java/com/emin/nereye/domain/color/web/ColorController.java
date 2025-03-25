@@ -14,7 +14,7 @@ public class ColorController {
     }
 
     @PostMapping("/save")
-    public ColorDto save(ColorDto dto) {
+    public ColorDto save(@RequestBody ColorDto dto) {
         return colorService.save(dto);
     }
 
@@ -24,7 +24,7 @@ public class ColorController {
     }
 
     @PutMapping("/update/{id}")
-    public void update(@PathVariable int id, ColorDto dto) {
+    public void update(@PathVariable int id, @RequestBody ColorDto dto) {
         colorService.update(dto, id);
     }
 

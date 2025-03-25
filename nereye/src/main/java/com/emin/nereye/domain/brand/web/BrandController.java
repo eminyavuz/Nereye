@@ -17,14 +17,14 @@ public class BrandController {
     }
 
     @PostMapping("/save")
-    public Brand save(@RequestBody Brand brand) {
-        Brand tmpBrand = brandService.save(brand);
-        return tmpBrand;
+    public void save(@RequestBody BrandDto brand) {
+         brandService.save(brand);
+
     }
 
     @GetMapping("/{id}")
     public BrandDto getBrand(@PathVariable int id) {
-        return brandService.findById(id);
+        return brandService.getBrand(id);
     }
 
     @DeleteMapping("/delete/{id}")
@@ -33,7 +33,7 @@ public class BrandController {
     }
 
     @PutMapping("/update/{id}")
-    public BrandDto update(@PathVariable int id, BrandDto dto) {
+    public BrandDto update(@PathVariable int id, @RequestBody BrandDto dto) {
         return brandService.update(id, dto);
     }
 }

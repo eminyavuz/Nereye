@@ -20,7 +20,7 @@ public class AdvertisementController {
     }
 
     @PostMapping("/save")
-    public AdvertisementDto save(AdvertisementDto ad){
+    public AdvertisementDto save(@RequestBody AdvertisementDto ad){
         return adService.save(ad);
     }
 
@@ -32,10 +32,10 @@ public class AdvertisementController {
     @GetMapping("/get/{id}")
     public AdvertisementDto getAd(@PathVariable int id)
     {
-        return adService.findById(id);
+        return adService.getAd(id);
     }
     @PutMapping("/update/{id}")
-    public AdvertisementDto update(@PathVariable int id, AdvertisementDto dto){
+    public AdvertisementDto update(@PathVariable int id, @RequestBody AdvertisementDto dto){
         return adService.update(id,dto);
     }
 }

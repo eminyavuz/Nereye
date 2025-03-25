@@ -8,7 +8,7 @@ import java.util.List;
 public interface AdService {
     List<Advertisement> findAll();
 
-    AdvertisementDto findById(int theId);
+    Advertisement findById(int theId);
 
     void deleteById(int theId);
 
@@ -16,7 +16,7 @@ public interface AdService {
 
     AdvertisementDto update(int theId, AdvertisementDto dto);
 
-    AdvertisementDto getAd(Advertisement ad);
+    AdvertisementDto getAd(int id);
 
     List<AdvertisementDto> getAll(List<Advertisement> adList);
 }

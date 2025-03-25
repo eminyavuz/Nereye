@@ -29,7 +29,7 @@ public class BrandServiceImpl implements BrandService {
     }
 
     @Override
-    public BrandDto findById(int theId) {
+    public Brand findById(int theId) {
         Optional<Brand> result = brandRepository.findById(theId);
         Brand b = null;
         if (result.isPresent()) {
@@ -37,7 +37,7 @@ public class BrandServiceImpl implements BrandService {
         } else {
             throw new RuntimeException("Brand has been not found");
         }
-        return brandMapper.toBrandDto(b);
+        return b;
 
     }
 
@@ -50,24 +50,25 @@ public class BrandServiceImpl implements BrandService {
 
     @Override
     @Transactional
-    public Brand save(Brand brand) {
-        return brandRepository.save(brand);
+    public void save(BrandDto brand) {
+         brandRepository.save(brandMapper.toBrand(brand));
 
     }
 
     @Override
-    public void update(int theId, BrandDto dto) {
+    public BrandDto update(int theId, BrandDto dto) {
         Brand brand = findById(theId);
         brand = brandMapper.toBrand(dto);
         brandRepository.save(brand);
+        return brandMapper.toBrandDto(brand);
 
 
     }
 
     @Override
-    public BrandDto get(Brand brand) {
+    public BrandDto getBrand(int id) {
 
-        return brandMapper.toBrandDto(brand);
+        return brandMapper.toBrandDto(findById(id));
     }
 
     @Override

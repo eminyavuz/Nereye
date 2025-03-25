@@ -64,9 +64,9 @@ public class AdServiceImpl implements AdService {
     }
 
     @Override
-    public AdvertisementDto getAd(Advertisement ad) {
+    public AdvertisementDto getAd(int id) {
 
-        return advertisementMapper.toAdDto(ad);
+        return advertisementMapper.toAdDto(findById(id));
     }
 
     @Override

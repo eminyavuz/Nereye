@@ -1,13 +1,10 @@
 package com.emin.nereye.domain.brand.impl;
-
+import com.emin.nereye.domain.brand.api.BrandDto;
 import com.emin.nereye.domain.brand.api.BrandService;
-import com.emin.nereye.domain.brand.api.brandDto.BrandReadDto;
-import com.emin.nereye.domain.brand.api.brandDto.BrandUpdateDto;
 import com.emin.nereye.mapper.BrandMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -32,7 +29,7 @@ public class BrandServiceImpl implements BrandService {
     }
 
     @Override
-    public Brand findById(int theId) {
+    public BrandDto findById(int theId) {
         Optional<Brand> result = brandRepository.findById(theId);
         Brand b = null;
         if (result.isPresent()) {
@@ -40,7 +37,7 @@ public class BrandServiceImpl implements BrandService {
         } else {
             throw new RuntimeException("Brand has been not found");
         }
-        return b;
+        return brandMapper.toBrandDto(b);
 
     }
 
@@ -59,26 +56,26 @@ public class BrandServiceImpl implements BrandService {
     }
 
     @Override
-    public void update(int theId, BrandUpdateDto dto) {
+    public void update(int theId, BrandDto dto) {
         Brand brand = findById(theId);
-        brand = brandMapper.brandUpdateDtoToBrand(dto);
+        brand = brandMapper.toBrand(dto);
         brandRepository.save(brand);
 
 
     }
 
     @Override
-    public BrandReadDto get(Brand brand) {
+    public BrandDto get(Brand brand) {
 
-        return brandMapper.brandToBrandReadDto(brand);
+        return brandMapper.toBrandDto(brand);
     }
 
     @Override
-    public List<BrandReadDto> getAll(List<Brand> brandList) {
-        List<BrandReadDto> dtoList = new ArrayList<>();
-        BrandReadDto dto = new BrandReadDto();
+    public List<BrandDto> getAll(List<Brand> brandList) {
+        List<BrandDto> dtoList = new ArrayList<>();
+        BrandDto dto = new BrandDto();
         for (Brand b : brandList) {
-            dto = brandMapper.brandToBrandReadDto(b);
+            dto = brandMapper.toBrandDto(b);
             dtoList.add(dto);
         }
         return dtoList;

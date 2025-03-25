@@ -1,26 +1,20 @@
 package com.emin.nereye.domain.color.api;
-
-import com.emin.nereye.domain.color.api.colorDto.ColorCreateDto;
-import com.emin.nereye.domain.color.api.colorDto.ColorReadDto;
-import com.emin.nereye.domain.color.api.colorDto.ColorUpdateDto;
-import com.emin.nereye.domain.color.impl.Color;
-
 import java.util.List;
 
 public interface ColorService {
-    List<Color> findAll();
+    List<ColorDto> findAll();
 
-    Color findById(int theId);
+    ColorDto findById(int theId);
 
     void deleteById(int theId);
 
-    ColorCreateDto save(Color color);
+    ColorDto save(ColorDto color);
 
-    void update(ColorUpdateDto color, int theId);
+    void update(ColorDto color, int theId);
 
-    ColorReadDto getColor(Color color);
+    ColorDto getColor(ColorDto color);
 
-    List<ColorReadDto> getAll(List<Color> colors);
+   // List<Color> getAll(List<Color> colors);
 
 
 }

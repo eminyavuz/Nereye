@@ -1,19 +1,13 @@
 package com.emin.nereye.domain.user.impl;
-
 import com.emin.nereye.enumeration.Role;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Table(name = "user")
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
-
+@Data
 
 public class User {
     @Id
@@ -33,23 +27,5 @@ public class User {
     private String last_name;
     @Column(name = "role")
     private Role role;
-
-    public User(String first_name,
-                String last_name,
-                String password,
-                String phone_number,
-                String email,
-                String user_name,
-                Role role
-    ) {
-        this.email = email;
-        this.role = role;
-        this.last_name = last_name;
-        this.first_name = first_name;
-        this.password = password;
-        this.phone_number = phone_number;
-        this.user_name = user_name;
-    }
-
 
 }

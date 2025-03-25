@@ -1,7 +1,5 @@
 package com.emin.nereye.domain.car.impl;
-
-import com.emin.nereye.domain.car.api.carDto.CarReadDto;
-import com.emin.nereye.domain.car.api.carDto.CarUpdateDto;
+import com.emin.nereye.domain.car.api.CarDto;
 import com.emin.nereye.mapper.CarMapper;
 import com.emin.nereye.domain.car.api.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,24 +52,24 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public void update(Integer theId, CarUpdateDto dto) {
+    public void update(Integer theId, CarDto dto) {
 
-        carRepository.save(carMapper.carUpdateDtoToCar(dto));
+        carRepository.save(carMapper.toCar(dto));
 
     }
 
     @Override
-    public CarReadDto getCar(Car car) {
+    public CarDto getCar(Car car) {
 
-        return carMapper.carToCarReadDto(car);
+        return carMapper.toCarDto(car);
     }
 
     @Override
-    public List<CarReadDto> getAll(List<Car> cars) {
-        List<CarReadDto> dtoList = new ArrayList<>();
-        CarReadDto dto = new CarReadDto();
+    public List<CarDto> getAll(List<Car> cars) {
+        List<CarDto> dtoList = new ArrayList<>();
+        CarDto dto = new CarDto();
         for (Car c : cars) {
-            dto = carMapper.carToCarReadDto(c);
+            dto = carMapper.toCarDto(c);
             dtoList.add(dto);
         }
         return dtoList;

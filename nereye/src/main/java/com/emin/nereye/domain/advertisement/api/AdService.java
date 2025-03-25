@@ -1,8 +1,6 @@
 package com.emin.nereye.domain.advertisement.api;
 
-import com.emin.nereye.domain.advertisement.api.advertisementDto.AdvertisementCreateDto;
-import com.emin.nereye.domain.advertisement.api.advertisementDto.AdvertisementReadDto;
-import com.emin.nereye.domain.advertisement.api.advertisementDto.AdvertisementUpdateDto;
+
 import com.emin.nereye.domain.advertisement.impl.Advertisement;
 
 import java.util.List;
@@ -10,15 +8,15 @@ import java.util.List;
 public interface AdService {
     List<Advertisement> findAll();
 
-    Advertisement findById(int theId);
+    AdvertisementDto findById(int theId);
 
     void deleteById(int theId);
 
-    AdvertisementCreateDto save(Advertisement ad);
+    AdvertisementDto save(AdvertisementDto ad);
 
-    AdvertisementUpdateDto update(int theId, AdvertisementUpdateDto dto);
+    AdvertisementDto update(int theId, AdvertisementDto dto);
 
-    AdvertisementReadDto getAd(Advertisement ad);
+    AdvertisementDto getAd(Advertisement ad);
 
-    List<AdvertisementReadDto> getAll(List<Advertisement> adList);
+    List<AdvertisementDto> getAll(List<Advertisement> adList);
 }

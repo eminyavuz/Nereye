@@ -2,12 +2,18 @@ package com.emin.nereye.domain.brand.impl;
 
 import com.emin.nereye.domain.car.impl.Car;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "brand")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Brand {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,40 +35,11 @@ public class Brand {
     // Constructors
 
 
-    public Brand() {
-    }
-
     public Brand(String brand_name) {
         this.brand_name = brand_name;
     }
 
-    // getters and setters
-
-    public List<Car> getCars() {
-        return cars;
-    }
-
-    public void setCars(List<Car> cars) {
-        this.cars = cars;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getBrand_name() {
-        return brand_name;
-    }
-
-    public void setBrand_name(String brand_name) {
+    {
         this.brand_name = brand_name;
     }
 

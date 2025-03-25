@@ -1,21 +1,15 @@
 package com.emin.nereye.domain.user.api;
-
-import com.emin.nereye.domain.user.api.userDto.UserCreateDto;
-import com.emin.nereye.domain.user.api.userDto.UserReadDto;
-import com.emin.nereye.domain.user.impl.User;
-
 import java.util.List;
 
-
 public interface UserService {
-    List<User> findAll();
+    List<UserDto> findAll();
 
-    UserReadDto findById(int theId);
+    UserDto findById(int theId);
 
     void deleteById(int theId);
 
-    UserCreateDto save(User user);
+    UserDto save(UserDto user);
 
-    void updete(User user, int theId);
+    UserDto updete(UserDto user, int theId);
 
 }

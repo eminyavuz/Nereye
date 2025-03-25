@@ -1,7 +1,4 @@
 package com.emin.nereye.domain.car.api;
-
-import com.emin.nereye.domain.car.api.carDto.CarReadDto;
-import com.emin.nereye.domain.car.api.carDto.CarUpdateDto;
 import com.emin.nereye.domain.car.impl.Car;
 
 import java.util.List;
@@ -15,10 +12,10 @@ public interface CarService {
 
     Car save(Car car);
 
-    void update(Integer theId, CarUpdateDto dto);
+    void update(Integer theId, CarDto dto);
 
-    CarReadDto getCar(Car car);
+    CarDto getCar(Car car);
 
-    List<CarReadDto> getAll(List<Car> cars);
+    List<CarDto> getAll(List<Car> cars);
 
 }

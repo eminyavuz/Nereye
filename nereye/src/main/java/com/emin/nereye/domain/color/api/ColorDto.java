@@ -1,13 +1,14 @@
-package com.emin.nereye.domain.color.api.colorDto;
+package com.emin.nereye.domain.color.api;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class ColorCreateDto {
+@NoArgsConstructor
+
+public class ColorDto {
     private String color_name;
     private String color_code;
 }

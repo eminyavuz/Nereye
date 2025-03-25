@@ -1,4 +1,4 @@
-package com.emin.nereye.domain.car.api.carDto;
+package com.emin.nereye.domain.car.api;
 
 import com.emin.nereye.domain.brand.impl.Brand;
 import com.emin.nereye.domain.color.impl.Color;
@@ -10,13 +10,15 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CarReadDto {
+public class CarDto {
+    private Integer id;
     private FuelType fuel_type;
     private int km;
     private boolean gear_type;
     private int capacity;
-    private String Model;
+    private String model;
     private int year;
+    private String img_url;
     private Brand brand;
     private Color color;
 }

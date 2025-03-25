@@ -1,14 +1,16 @@
-package com.emin.nereye.domain.user.api.userDto;
+package com.emin.nereye.domain.user.api;
 
 import com.emin.nereye.enumeration.Role;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserUpdateDto {
+@Builder
+public class UserDto {
     private String user_name;
     private String password;
     private String email;
@@ -16,5 +18,4 @@ public class UserUpdateDto {
     private String first_name;
     private String last_name;
     private Role role;
-
 }

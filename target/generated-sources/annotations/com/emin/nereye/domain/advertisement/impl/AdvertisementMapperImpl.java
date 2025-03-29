@@ -1,13 +1,12 @@
-package com.emin.nereye.mapper;
+package com.emin.nereye.domain.advertisement.impl;
 
 import com.emin.nereye.domain.advertisement.api.AdvertisementDto;
-import com.emin.nereye.domain.advertisement.impl.Advertisement;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-03-25T05:26:59+0300",
+    date = "2025-03-29T01:59:53+0300",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 21.0.1 (Oracle Corporation)"
 )
 @Component

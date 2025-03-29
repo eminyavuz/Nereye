@@ -1,4 +1,4 @@
-package com.emin.nereye.mapper;
+package com.emin.nereye.domain.color.impl;
 
 import com.emin.nereye.domain.color.api.ColorDto;
 import com.emin.nereye.domain.color.impl.Color;

@@ -1,4 +1,4 @@
-package com.emin.nereye.mapper;
+package com.emin.nereye.domain.brand.impl;
 
 import com.emin.nereye.domain.brand.api.BrandDto;
 import com.emin.nereye.domain.brand.impl.Brand;

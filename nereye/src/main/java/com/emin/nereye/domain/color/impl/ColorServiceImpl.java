@@ -1,7 +1,6 @@
 package com.emin.nereye.domain.color.impl;
 import com.emin.nereye.domain.color.api.ColorDto;
 import com.emin.nereye.domain.color.api.ColorService;
-import com.emin.nereye.mapper.ColorMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

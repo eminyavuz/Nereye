@@ -2,7 +2,6 @@ package com.emin.nereye.domain.user.impl;
 
 import com.emin.nereye.domain.user.api.UserDto;
 import com.emin.nereye.domain.user.api.UserService;
-import com.emin.nereye.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

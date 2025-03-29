@@ -5,7 +5,6 @@ import com.emin.nereye.domain.car.api.CarDto;
 import com.emin.nereye.domain.car.api.CarService;
 import com.emin.nereye.domain.car.impl.Car;
 import com.emin.nereye.domain.color.api.ColorService;
-import com.emin.nereye.mapper.CarMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

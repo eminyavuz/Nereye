@@ -1,6 +1,5 @@
 package com.emin.nereye.domain.advertisement.impl;
 import com.emin.nereye.domain.advertisement.api.AdvertisementDto;
-import com.emin.nereye.mapper.AdvertisementMapper;
 import com.emin.nereye.domain.advertisement.api.AdService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -22,8 +22,8 @@ public class UserController {
     }
 
     @PostMapping("/save")
-    public UserDto create(@RequestBody UserDto user) {
-        return userService.save(user);
+    public UserResponse create(@RequestBody UserDto user) {
+        return toResponse(userService.save(user));
     }
 
     @GetMapping("/{id}")
@@ -36,4 +36,16 @@ public class UserController {
         return userService.updete(userDto, id);
     }
 
+
+
+    public static UserResponse toResponse(UserDto dto){
+        return UserResponse
+                .builder()
+                .user_name(dto.getUser_name())
+                .first_name(dto.getFirst_name())
+                .user_email(dto.getUser_name())
+                .last_name(dto.getLast_name())
+                .role(dto.getRole())
+                .build();
+    }
 }

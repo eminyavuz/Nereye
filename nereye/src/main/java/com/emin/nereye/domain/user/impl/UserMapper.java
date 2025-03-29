@@ -1,7 +1,6 @@
-package com.emin.nereye.mapper;
+package com.emin.nereye.domain.user.impl;
 
 import com.emin.nereye.domain.user.api.UserDto;
-import com.emin.nereye.domain.user.impl.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;

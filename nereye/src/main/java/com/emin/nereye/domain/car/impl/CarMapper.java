@@ -1,4 +1,4 @@
-package com.emin.nereye.mapper;
+package com.emin.nereye.domain.car.impl;
 
 import com.emin.nereye.domain.car.api.CarDto;
 import com.emin.nereye.domain.car.impl.Car;

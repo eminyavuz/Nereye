@@ -1,7 +1,6 @@
 package com.emin.nereye.domain.brand.impl;
 import com.emin.nereye.domain.brand.api.BrandDto;
 import com.emin.nereye.domain.brand.api.BrandService;
-import com.emin.nereye.mapper.BrandMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

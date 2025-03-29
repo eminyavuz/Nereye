@@ -1,4 +1,4 @@
-package com.emin.nereye.mapper;
+package com.emin.nereye.domain.advertisement.impl;
 
 import com.emin.nereye.domain.advertisement.api.AdvertisementDto;
 import com.emin.nereye.domain.advertisement.impl.Advertisement;

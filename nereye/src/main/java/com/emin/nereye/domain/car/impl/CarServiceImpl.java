@@ -1,6 +1,5 @@
 package com.emin.nereye.domain.car.impl;
 import com.emin.nereye.domain.car.api.CarDto;
-import com.emin.nereye.mapper.CarMapper;
 import com.emin.nereye.domain.car.api.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

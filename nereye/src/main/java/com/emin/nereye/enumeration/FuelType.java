@@ -7,5 +7,4 @@ public enum FuelType {
     LPG,
     Dizel
 
-
 }

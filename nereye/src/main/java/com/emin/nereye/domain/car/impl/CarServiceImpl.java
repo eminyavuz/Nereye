@@ -1,6 +1,7 @@
 package com.emin.nereye.domain.car.impl;
 import com.emin.nereye.domain.car.api.CarDto;
 import com.emin.nereye.domain.car.api.CarService;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,12 +28,12 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public Car findById(Integer theId) {
+    public  Car findById(Integer theId) {
         Optional<Car> result = carRepository.findById(theId);
         Car car = null;
         if (result.isPresent()) {
             car = result.get();
-        } else throw new RuntimeException("Car did not found");
+        } else throw new EntityNotFoundException("Araba Bulunamadı ");
         return car;
     }
 
@@ -57,11 +58,10 @@ public class CarServiceImpl implements CarService {
 
     }
 
-    @Override
-    public CarDto getCar(Car car) {
-
-        return carMapper.toCarDto(car);
+    public CarDto getCar(int id) {
+        return carMapper.toCarDto(findById(id));
     }
+
 
     @Override
     public List<CarDto> getAll(List<Car> cars) {

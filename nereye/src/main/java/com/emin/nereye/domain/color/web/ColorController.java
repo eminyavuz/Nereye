@@ -18,7 +18,7 @@ public class ColorController {
         return colorService.save(dto);
     }
 
-    @GetMapping("/get/{id}")
+    @GetMapping("/{id}")
     public ColorDto get(@PathVariable int id) {
         return colorService.findById(id);
     }

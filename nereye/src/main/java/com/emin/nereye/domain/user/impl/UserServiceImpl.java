@@ -2,6 +2,7 @@ package com.emin.nereye.domain.user.impl;
 
 import com.emin.nereye.domain.user.api.UserDto;
 import com.emin.nereye.domain.user.api.UserService;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,7 +31,6 @@ public class UserServiceImpl implements UserService {
         List<UserDto> dto = new ArrayList<>();
         for (User u : users) {
             dto.add(userMapper.toUserDto(u));
-
         }
         return dto;
     }
@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService {
         User user = null;
         if (result.isPresent())
             user = result.get();
-        else throw new RuntimeException("User could not be founded");
+        else throw new EntityNotFoundException("Kullanıcı bulunamadı - Lütfen geçerli bir id girin");
         return userMapper.toUserDto(user);
     }
 
@@ -62,9 +62,11 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public UserDto updete(UserDto user, int theId) {
         User tmp = userMapper.toUser(findById(theId));
+        tmp=userMapper.toUser(user);
         tmp.setId(theId);
+
         userRepository.save(tmp);
-        return user;
+        return userMapper.toUserDto(tmp);
 
     }
 }

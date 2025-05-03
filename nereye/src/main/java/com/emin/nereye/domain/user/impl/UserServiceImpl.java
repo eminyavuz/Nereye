@@ -2,8 +2,13 @@ package com.emin.nereye.domain.user.impl;
 
 import com.emin.nereye.domain.user.api.UserDto;
 import com.emin.nereye.domain.user.api.UserService;
+import com.emin.nereye.security.JWTService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,12 +22,19 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private final UserRepository userRepository;
     @Autowired
+    AuthenticationManager authenticationManager;
+    @Autowired
     private final UserMapper userMapper;
+    @Autowired
+    private JWTService jwtService;
+    private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, UserMapper userMapper) {
+    public UserServiceImpl(UserRepository userRepository, UserMapper userMapper, AuthenticationManager authenticationManager,JWTService jwtService) {
         this.userRepository = userRepository;
         this.userMapper = userMapper;
+        this.authenticationManager = authenticationManager;
+        this.jwtService=jwtService;
     }
 
     @Override
@@ -54,6 +66,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public UserDto save(UserDto user) {
+        user.setPassword(encoder.encode(user.getPassword()));
         userRepository.save(userMapper.toUser(user));
         return user;
     }
@@ -62,11 +75,22 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public UserDto updete(UserDto user, int theId) {
         User tmp = userMapper.toUser(findById(theId));
-        tmp=userMapper.toUser(user);
+        tmp = userMapper.toUser(user);
         tmp.setId(theId);
 
         userRepository.save(tmp);
         return userMapper.toUserDto(tmp);
 
+    }
+
+    @Override
+    public String verify(UserDto user) {
+        Authentication authentication =
+                authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUser_name(),user.getPassword()));
+       if(authentication.isAuthenticated())
+       {
+           return jwtService.generateToken();
+       }
+        return "Failed";
     }
 }

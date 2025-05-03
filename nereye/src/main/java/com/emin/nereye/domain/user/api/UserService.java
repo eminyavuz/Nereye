@@ -13,4 +13,7 @@ public interface UserService {
 
     UserDto updete(UserDto user, int theId);
 
+    String verify (UserDto user);
+
 }
+

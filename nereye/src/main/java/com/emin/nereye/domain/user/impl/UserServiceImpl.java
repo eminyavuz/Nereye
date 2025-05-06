@@ -89,7 +89,7 @@ public class UserServiceImpl implements UserService {
                 authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUser_name(),user.getPassword()));
        if(authentication.isAuthenticated())
        {
-           return jwtService.generateToken();
+           return jwtService.generateToken(user.getUser_name());
        }
         return "Failed";
     }

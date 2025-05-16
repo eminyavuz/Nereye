@@ -30,9 +30,10 @@ public class SecurityConfig {
         return http
                 .csrf(customizer -> customizer.disable())
                 .authorizeHttpRequests
-                        (request -> request
-                                .requestMatchers("register","login")
+                        (request-> request
+                                .requestMatchers("register","login","/user/save","user/**")
                                 .permitAll()
+                                .requestMatchers("/user/**").hasAnyRole("USER","ADMIN")
                                 .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults())
                 .sessionManagement(session ->
@@ -58,17 +59,4 @@ public class SecurityConfig {
         return config.getAuthenticationManager();
 
     }
-   /* @Bean
-    public UserDetailsService userDetailService()
-    {
-        UserDetails user= User
-                .withDefaultPasswordEncoder()
-                .username("demo")
-                .password("demo")
-                .roles("USER")
-                .build();
-        return new InMemoryUserDetailsManager();
-    }*/
-
-
 }

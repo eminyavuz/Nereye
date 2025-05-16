@@ -23,17 +23,25 @@ public class UserController {
 
     @PostMapping("/save")
     public UserResponse create(@RequestBody UserDto user) {
+        System.out.println("girrdi");
         return toResponse(userService.save(user));
     }
 
     @GetMapping("/{id}")
     public UserDto getUser(@PathVariable int id) {
+        System.out.println("Get user ");
         return userService.findById(id);
     }
 
     @PutMapping("/update/{id}")
     public UserDto updateUser(@PathVariable int id, @RequestBody UserDto userDto) {
         return userService.updete(userDto, id);
+    }
+
+    @PostMapping("/login")
+    public String login(@RequestBody UserDto user) {
+
+        return userService.verify(user);
     }
 
 

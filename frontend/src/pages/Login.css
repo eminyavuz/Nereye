@@ -1,0 +1,86 @@
+/* Login page styles */
+
+body, html, #root {
+  height: 100%;
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.login-page {
+  height: 100vh;
+  background: url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+  display: flex;
+  flex-direction: column;
+}
+
+
+
+.login-container {
+  max-width: 700px;
+  margin: auto;
+  margin-top: 120px;
+  padding: 70px 60px;
+  background-color: rgba(255, 255, 255, 0.85);
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  backdrop-filter: blur(10px);
+  z-index: 10;
+}
+
+.login-container h2 {
+  text-align: center;
+  margin-bottom: 24px;
+  color: #222;
+  font-weight: 700;
+  font-size: 32px;
+  letter-spacing: 1px;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-form label {
+  margin-bottom: 18px;
+  font-weight: 600;
+  color: #444;
+  display: flex;
+  flex-direction: column;
+  font-size: 16px;
+}
+
+.login-form input[type="text"],
+.login-form input[type="password"] {
+  margin-top: 8px;
+  padding: 12px 14px;
+  font-size: 16px;
+  border: 1.8px solid #bbb;
+  border-radius: 8px;
+  transition: border-color 0.3s ease;
+}
+
+.login-form input[type="text"]:focus,
+.login-form input[type="password"]:focus {
+  border-color: #0056b3;
+  outline: none;
+  box-shadow: 0 0 6px #0056b3aa;
+}
+
+.login-form button {
+  margin-top: 28px;
+  padding: 14px;
+  font-size: 20px;
+  font-weight: 700;
+  color: white;
+  background: linear-gradient(90deg, #323233, #323233);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  box-shadow: 0 4px 12px  rgba(39, 39, 39, 0.5);
+}
+
+.login-form button:hover {
+  background: linear-gradient(90deg, #313335, #313335);
+}

@@ -1,0 +1,51 @@
+/* CarGrid component styles - vertical list layout */
+
+.car-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  padding: 1rem 2rem 2rem 2rem;
+  justify-items: center;
+  align-items: start;
+}
+
+.car-card {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgb(0 0 0 / 0.1);
+  padding: 1.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.car-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 36px rgb(0 0 0 / 0.2);
+}
+
+.car-card img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+}
+
+.car-card h3 {
+  margin: 0 0 0.5rem 0;
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: #282829;
+}
+
+.car-card p {
+  margin: 0;
+  color: #363636;
+  font-weight: 700;
+  font-size: 1.1rem;
+}

@@ -1,0 +1,54 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 0.5rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  color:white;
+  background-color:rgba(0, 0, 0, 0.5) !important;
+  backdrop-filter: blur(8px);
+  font-family: 'Poppins', sans-serif;
+  transition: rgba(0, 0, 0, 0.5);
+  box-sizing: border-box;
+}
+
+.navbar.scrolled {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.navbar-left {
+  flex: 1;
+}
+
+.navbar-left .site-name {
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-align: left;
+}
+
+.navbar-right {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  gap: 2rem;
+}
+
+.navbar-right .nav-link {
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.25rem;
+  white-space: nowrap;
+  transition: color 0.3s ease;
+}
+
+.navbar-right .nav-link:hover {
+  color: #d1d5db;
+  text-decoration: underline;
+}

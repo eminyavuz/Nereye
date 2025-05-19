@@ -1,0 +1,10 @@
+.footer {
+  background-color: #242526;
+  color: white;
+  text-align: center;
+  padding: 1rem 0;
+  font-weight: 600;
+  font-size: 1rem;
+  margin-top: 2rem;
+  box-shadow: 0 -2px 8px rgba(30, 64, 175, 0.3);
+}

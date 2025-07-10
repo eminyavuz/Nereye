@@ -11,7 +11,7 @@ public interface UserService {
 
     UserDto save(UserDto user);
 
-    UserDto updete(UserDto user, int theId);
+    UserDto update(UserDto user, int theId);
 
     String verify (UserDto user);
 

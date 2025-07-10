@@ -1,0 +1,218 @@
+.register-page {
+  min-height: 100vh;
+  background: url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  font-family: 'Poppins', sans-serif;
+}
+
+.register-page::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: 1;
+}
+
+.register-container {
+  max-width: 700px;
+  width: 90%;
+  margin: auto;
+  padding: 40px 35px;
+  background-color: rgba(255, 255, 255, 0.97);
+  border-radius: 24px;
+  box-shadow: 0 15px 50px rgba(0,0,0,0.15);
+  backdrop-filter: blur(10px);
+  z-index: 2;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transform: translateY(-10%);
+}
+
+.register-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+}
+
+.register-container h2 {
+  text-align: center;
+  margin-bottom: 35px;
+  color: #1a1a1a;
+  font-weight: 700;
+  font-size: 32px;
+  letter-spacing: 0.5px;
+}
+
+.register-form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.register-form .input-group {
+  position: relative;
+  width: 100%;
+}
+
+.register-form .input-group:nth-last-child(2) {
+  grid-column: 1 / -1;
+}
+
+.register-form .input-group input {
+  width: 100%;
+  height: 50px;
+  padding: 0 18px;
+  font-size: 15px;
+  border: 2px solid #e1e1e1;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  background-color: #f8f9fa;
+  box-sizing: border-box;
+}
+
+.register-form .input-group input[type="tel"] {
+  grid-column: 1 / -1;
+  width: 100%;
+  height: 50px;
+  padding: 0 18px;
+  font-size: 15px;
+  border: 2px solid #e1e1e1;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  background-color: #f8f9fa;
+  box-sizing: border-box;
+}
+
+.register-form .input-group label {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: transparent;
+  padding: 0 5px;
+  color: #666;
+  transition: all 0.3s ease;
+  pointer-events: none;
+  margin: 0;
+  font-size: 15px;
+}
+
+.register-form .input-group input:focus,
+.register-form .input-group input:not(:placeholder-shown) {
+  border-color: #323233;
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(50, 50, 51, 0.1);
+  background-color: #ffffff;
+}
+
+.register-form .input-group input:focus + label,
+.register-form .input-group input:not(:placeholder-shown) + label {
+  top: 0;
+  transform: translateY(-50%) scale(0.85);
+  background-color: #ffffff;
+  color: #323233;
+  font-weight: 600;
+}
+
+.register-form .input-group input::placeholder {
+  color: transparent;
+}
+
+.register-form input[type="text"]::before,
+.register-form input[type="password"]::before,
+.register-form input[type="email"]::before,
+.register-form input[type="tel"]::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: 0.5s;
+}
+
+.register-form button {
+  margin-top: 10px;
+  padding: 15px;
+  font-size: 16px;
+  font-weight: 600;
+  color: white;
+  background: #323233;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(50, 50, 51, 0.2);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  grid-column: 1 / -1;
+  width: 100%;
+}
+
+.register-form button:hover {
+  background: #1a1a1a;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(50, 50, 51, 0.3);
+}
+
+.register-form button:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 15px rgba(50, 50, 51, 0.2);
+}
+
+.login-link {
+  text-align: center;
+  margin-top: 20px;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.login-link a {
+  color: #323233;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.login-link a:hover {
+  color: #1a1a1a;
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .register-container {
+    width: 95%;
+    padding: 30px 20px;
+    margin: auto;
+    transform: translateY(-5%);
+  }
+
+  .register-form {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .register-container h2 {
+    font-size: 28px;
+    margin-bottom: 25px;
+  }
+
+  .register-form .input-group input {
+    height: 45px;
+    padding: 0 15px;
+  }
+
+  .register-form button {
+    padding: 12px;
+  }
+} 

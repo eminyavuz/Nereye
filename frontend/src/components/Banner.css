@@ -5,6 +5,7 @@
   color: white;
   text-align: center;
   padding: 6rem 2rem 2rem 2rem;
+  margin-top: -80px; /* Navbar yüksekliği kadar negatif margin */
   margin-bottom: 2.5rem;
   border-radius: 0;
   overflow: visible;
@@ -20,7 +21,6 @@
 .banner::before {
   content: none;
 }
-
 
 .banner h1 {
   position: relative;

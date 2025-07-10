@@ -36,6 +36,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<BaseError> handleBadRequset(MethodArgumentTypeMismatchException ex) {
         BaseError error = BaseError.builder()
                 .message("Lütfen Sayısal Bir Değer Girin")
+                .message(ex.getMessage())
                 .status(HttpStatus.BAD_REQUEST.value())
                 .timeStamp(System.currentTimeMillis())
                 .build();

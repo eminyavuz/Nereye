@@ -8,6 +8,7 @@ body {
   color: #1f2937;
   line-height: 1.6;
   font-size: 16px;
+  overflow-x: hidden;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -17,13 +18,14 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
 }
 
-a {
+/* Global link styles - excluding navbar links */
+a:not(.nav-link) {
   color: #3b82f6;
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
-a:hover {
+a:not(.nav-link):hover {
   color: #2563eb;
   text-decoration: underline;
 }

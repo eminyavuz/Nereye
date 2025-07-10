@@ -50,6 +50,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto findById(int theId) {
         Optional<User> result = userRepository.findById(theId);
+
         User user = null;
         if (result.isPresent())
             user = result.get();
@@ -73,7 +74,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public UserDto updete(UserDto user, int theId) {
+    public UserDto update(UserDto user, int theId) {
         User tmp = userMapper.toUser(findById(theId));
         tmp = userMapper.toUser(user);
         tmp.setId(theId);
@@ -85,10 +86,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String verify(UserDto user) {
+        System.out.println("Verify process started ");
         Authentication authentication =
                 authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUser_name(),user.getPassword()));
        if(authentication.isAuthenticated())
        {
+           System.out.println("verify complated");
            return jwtService.generateToken(user.getUser_name());
        }
         return "Failed";

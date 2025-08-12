@@ -6,8 +6,10 @@ import com.emin.nereye.domain.brand.impl.Brand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("/brand")
+@RequestMapping("/api/brand")
 public class BrandController {
     private BrandService brandService;
 
@@ -20,6 +22,11 @@ public class BrandController {
     public void save(@RequestBody BrandDto brand) {
          brandService.save(brand);
 
+    }
+
+    @GetMapping("/getAll")
+    public List<BrandDto> getAll() {
+        return brandService.getAll(brandService.findAll());
     }
 
     @GetMapping("/{id}")

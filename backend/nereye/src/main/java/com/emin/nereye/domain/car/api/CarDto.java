@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CarDto {
-    private Integer id;
     private FuelType fuel_type;
     private int km;
     private boolean gear_type;

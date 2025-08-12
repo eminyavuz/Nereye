@@ -4,8 +4,10 @@ import com.emin.nereye.domain.color.api.ColorDto;
 import com.emin.nereye.domain.color.api.ColorService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("/color")
+@RequestMapping("/api/color")
 public class ColorController {
     private ColorService colorService;
 
@@ -16,6 +18,11 @@ public class ColorController {
     @PostMapping("/save")
     public ColorDto save(@RequestBody ColorDto dto) {
         return colorService.save(dto);
+    }
+
+    @GetMapping("/getAll")
+    public List<ColorDto> getAll() {
+        return colorService.findAll();
     }
 
     @GetMapping("/{id}")

@@ -4,6 +4,7 @@ import java.util.Optional;
 
 public interface UserService {
     List<UserDto> findAll();
+    UserDto findByUsername(String username);
 
     UserDto findById(int theId);
 

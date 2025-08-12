@@ -5,11 +5,8 @@ services:
     build: ./backend/nereye
     ports:
       - "8080:8080"
-    depends_on:
-      rentdb:
-        condition: service_healthy
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://rentdb:3306/rent?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      SPRING_DATASOURCE_URL: jdbc:mysql://host.docker.internal:3306/rent?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
       SPRING_DATASOURCE_USERNAME: springstudent
       SPRING_DATASOURCE_PASSWORD: springstudent
       SPRING_SECURITY_USER_NAME: demo
@@ -23,31 +20,31 @@ services:
   frontend:
     build: ./frontend
     ports:
-      - "3000:3000"
+      - "3000:80"
     depends_on:
       - backend
     networks:
       - app-network
 
-  rentdb:
-    image: mysql:8.0
-    restart: always
-    environment:
-      MYSQL_DATABASE: rent
-      MYSQL_USER: springstudent
-      MYSQL_PASSWORD: springstudent
-      MYSQL_ROOT_PASSWORD: springstudent
-    volumes:
-      - mysql-data:/var/lib/mysql
-      - ./mysql.cnf:/etc/mysql/conf.d/mysql.cnf
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "springstudent", "-pspringstudent"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-      start_period: 30s
-    networks:
-      - app-network
+#  rentdb:
+#    image: mysql:8.0
+#    restart: always
+#    environment:
+#      MYSQL_DATABASE: rent
+#      MYSQL_USER: springstudent
+#      MYSQL_PASSWORD: springstudent
+#      MYSQL_ROOT_PASSWORD: springstudent
+#    volumes:
+#      - mysql-data:/var/lib/mysql
+#      - ./mysql.cnf:/etc/mysql/conf.d/mysql.cnf
+#    healthcheck:
+#      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "springstudent", "-pspringstudent"]
+#      interval: 10s
+#      timeout: 5s
+#      retries: 5
+#      start_period: 30s
+#    networks:
+#      - app-network
 
 networks:
   app-network:

@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import { userService } from '../services/api';
 import './Login.css';
+import { AuthContext } from '../context/AuthContext';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -12,6 +13,13 @@ const Login = () => {
   });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const { isLoggedIn, login } = useContext(AuthContext);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate('/');
+    }
+  }, [isLoggedIn, navigate]);
 
   const handleChange = (e) => {
     setFormData({
@@ -27,8 +35,13 @@ const Login = () => {
 
     try {
       const response = await userService.login(formData);
-      if (response) {
+      if (response && response.data && response.data.token) {
+        console.log('Gelen token:', response.data.token); // Doğru şekilde tokeni logla
+        login(response.data.token); // Context güncellenir, Navbar otomatik render olur
+        console.log('Giriş başarılı'); // Başarılı giriş mesajı
         navigate('/');
+      } else {
+        setError('Token alınamadı!');
       }
     } catch (err) {
       setError('Giriş başarısız. Lütfen bilgilerinizi kontrol edin.');
@@ -39,7 +52,7 @@ const Login = () => {
 
   return (
     <div className="login-page">
-      <Navbar isLoggedIn={false} siteName="Nereye" />
+      <Navbar siteName="Nereye" />
       <div className="login-container">
         <h2>Giriş Yap</h2>
         {error && <div className="error-message">{error}</div>}

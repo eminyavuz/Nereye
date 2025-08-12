@@ -48,6 +48,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public UserDto findByUsername(String username) {
+        return userMapper.toUserDto(userRepository.findByUsername(username));
+    }
+
+    @Override
     public UserDto findById(int theId) {
         Optional<User> result = userRepository.findById(theId);
 
@@ -57,6 +62,7 @@ public class UserServiceImpl implements UserService {
         else throw new EntityNotFoundException("Kullanıcı bulunamadı - Lütfen geçerli bir id girin");
         return userMapper.toUserDto(user);
     }
+
 
     @Override
     @Transactional
@@ -92,7 +98,10 @@ public class UserServiceImpl implements UserService {
        if(authentication.isAuthenticated())
        {
            System.out.println("verify complated");
-           return jwtService.generateToken(user.getUser_name());
+           String token = jwtService.generateToken(user.getUser_name());
+           
+           System.out.println(token);
+           return token;
        }
         return "Failed";
     }

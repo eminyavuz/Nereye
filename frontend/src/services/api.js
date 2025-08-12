@@ -9,6 +9,17 @@ const api = axios.create({
   },
   withCredentials: true
 });
+
+// Token gerektirmeyen API instance (public endpoints için)
+const publicApi = axios.create({
+  baseURL: API_BASE_URL,
+  headers: {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json'
+  },
+  withCredentials: true
+});
+
 axios.interceptors.response.use(
   (response) => {
     return response;
@@ -60,6 +71,30 @@ export const userService = {
   delete: (id) => api.delete(`/user/delete/${id}`)
 };
 
+export const advertisementService = {
+  create: (advertisementData) => api.post('/advertisement/save', advertisementData),
+  getAll: () => api.get('/advertisement/getAll'),
+  getById: (id) => api.get(`/advertisement/get/${id}`),
+  update: (id, data) => api.put(`/advertisement/update/${id}`, data),
+  delete: (id) => api.delete(`/advertisement/delete/${id}`)
+};
 
+export const carService = {
+  getAll: () => api.get('/car/getAll'),
+  getById: (id) => api.get(`/car/get/${id}`),
+  create: (carData) => api.post('/car/save', carData),
+  update: (id, data) => api.put(`/car/update/${id}`, data),
+  delete: (id) => api.delete(`/car/delete/${id}`)
+};
+
+export const brandService = {
+  getAll: () => publicApi.get('/brand/getAll'),
+  getById: (id) => publicApi.get(`/brand/get/${id}`)
+};
+
+export const colorService = {
+  getAll: () => publicApi.get('/color/getAll'),
+  getById: (id) => publicApi.get(`/color/get/${id}`)
+};
 
 export default api;

@@ -59,7 +59,7 @@ const Register = () => {
 
   return (
     <div className="register-page">
-      <Navbar isLoggedIn={false} siteName="Nereye" />
+      <Navbar siteName="Nereye" />
       <div className="register-container">
         <h2>Kayıt Ol</h2>
         {error && <div className="error-message">{error}</div>}

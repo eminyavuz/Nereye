@@ -41,14 +41,14 @@ public class SecurityConfig {
                                 .requestMatchers("/api/user/login","/api/user/save","/api/auth")
                                 .permitAll()
                                 .requestMatchers("/api/auth/**", "/api/public/**").permitAll()
+                                .requestMatchers("/api/brand/getAll", "/api/color/getAll").permitAll()
                                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                                 .anyRequest().authenticated())
-                .httpBasic(Customizer.withDefaults())
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
-        //http.formLogin(Customizer.withDefaults());
+
 
 
     }

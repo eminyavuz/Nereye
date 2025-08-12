@@ -44,6 +44,10 @@ public class UserController {
     public ResponseEntity<UserResponse> create(@RequestBody UserDto user) {
         return ResponseEntity.ok(toResponse(userService.save(user)));
     }
+    @GetMapping("/profile")
+    public ResponseEntity<UserDto> profile(@RequestParam String username) {
+        return ResponseEntity.ok(userService.findByUsername(username));
+    }
 
     @GetMapping("/get/{id}")
     public ResponseEntity<UserDto> getUser(@PathVariable int id) {
@@ -56,9 +60,12 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody UserDto user) {
-        System.out.println("Login proccess started");
-        return ResponseEntity.ok(userService.verify(user));
+    public ResponseEntity<TokenResponse> login(@RequestBody UserDto user) {
+            String token = userService.verify(user);
+            TokenResponse response = new TokenResponse();
+            response.setToken(token);
+            return ResponseEntity.ok(response);
+
     }
 
     public static UserResponse toResponse(UserDto dto) {

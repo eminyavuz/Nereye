@@ -55,9 +55,8 @@ public class BrandServiceImpl implements BrandService {
     }
 
     @Override
-    public BrandDto update(int theId, BrandDto dto) {
-        Brand brand = findById(theId);
-        brand = brandMapper.toBrand(dto);
+    public BrandDto update( BrandDto dto) {
+        Brand brand = brandMapper.toBrand(dto);
         brandRepository.save(brand);
         return brandMapper.toBrandDto(brand);
 

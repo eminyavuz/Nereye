@@ -17,7 +17,7 @@ const publicApi = axios.create({
     'Content-Type': 'application/json',
     'Accept': 'application/json'
   },
-  withCredentials: true
+  withCredentials: false
 });
 
 axios.interceptors.response.use(
@@ -67,8 +67,10 @@ export const userService = {
   login: (credentials) => api.post('/user/login', credentials),
   register: (userData) => api.post('/user/save', userData),
   getById: (id) => api.get(`/user/get/${id}`),
+  getAll: () => api.get('/user/getAll'),
   update: (id, data) => api.put(`/user/update/${id}`, data),
-  delete: (id) => api.delete(`/user/delete/${id}`)
+  delete: (id) => api.delete(`/user/delete/${id}`),
+  getCurrentUser: () => api.get('/auth/me')
 };
 
 export const advertisementService = {
@@ -89,12 +91,18 @@ export const carService = {
 
 export const brandService = {
   getAll: () => publicApi.get('/brand/getAll'),
-  getById: (id) => publicApi.get(`/brand/get/${id}`)
+  getById: (id) => publicApi.get(`/brand/get/${id}`),
+  create: (data) => api.post('/brand/save', data),
+  update: (id, data) => api.put(`/brand/update/${id}`, data),
+  delete: (id) => api.delete(`/brand/delete/${id}`)
 };
 
 export const colorService = {
   getAll: () => publicApi.get('/color/getAll'),
-  getById: (id) => publicApi.get(`/color/get/${id}`)
+  getById: (id) => publicApi.get(`/color/get/${id}`),
+  create: (data) => api.post('/color/save', data),
+  update: (id, data) => api.put(`/color/update/${id}`, data),
+  delete: (id) => api.delete(`/color/delete/${id}`)
 };
 
 export default api;

@@ -4,24 +4,30 @@ import com.emin.nereye.domain.advertisement.api.AdService;
 import com.emin.nereye.domain.advertisement.api.AdvertisementDto;
 import com.emin.nereye.domain.car.api.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
 @RestController
-@RequestMapping("/advertisement")
+@RequestMapping("/api/advertisement")
 public class AdvertisementController {
     private final AdService adService;
     private final CarService carService;
     @Autowired
     public AdvertisementController (AdService adService,
                                     CarService carService){
-        this.carService=carService;
-        this.adService=adService;
-
+        this.carService = carService;
+        this.adService = adService;
     }
 
     @PostMapping("/save")
-    public AdvertisementDto save(@RequestBody AdvertisementDto ad){
-        return adService.save(ad);
+    public AdvertisementDto save(@RequestBody AdvertisementDto ad , Authentication authentication){
+        System.out.println("AdvertisementController - Authentication: " + authentication);
+        System.out.println("AdvertisementController - Authentication Details: " + authentication.getDetails());
+        System.out.println("AdvertisementController - Authentication Principal: " + authentication.getPrincipal());
+        Integer userId= (Integer) authentication.getDetails();
+        System.out.println("AdvertisementController - Extracted UserId: " + userId);
+         return  adService.save(ad,userId);
     }
 
     @DeleteMapping("/delete/{id}")
@@ -34,8 +40,13 @@ public class AdvertisementController {
     {
         return adService.getAd(id);
     }
-    @PutMapping("/update/{id}")
-    public AdvertisementDto update(@PathVariable int id, @RequestBody AdvertisementDto dto){
-        return adService.update(id,dto);
+    @PutMapping("/update")
+    public AdvertisementDto update( @RequestBody AdvertisementDto dto){
+        return adService.update(dto);
+    }
+
+    @GetMapping("/getAll")
+    public List<AdvertisementDto> getAll() {
+        return adService.getAll(adService.findAll());
     }
 }

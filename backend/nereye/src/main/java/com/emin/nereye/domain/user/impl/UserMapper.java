@@ -9,6 +9,7 @@ import org.mapstruct.factory.Mappers;
 public interface UserMapper {
     UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
 
+    @Mapping(source = "id", target = "id")
     @Mapping(source = "user_name", target = "user_name")
     @Mapping(source = "password", target = "password")
     @Mapping(source = "email", target = "email")
@@ -18,6 +19,7 @@ public interface UserMapper {
     @Mapping(source = "role", target = "role")
     User toUser(UserDto dto);
 
+    @Mapping(source = "id", target = "id")
     @Mapping(source = "user_name", target = "user_name")
     @Mapping(source = "password", target = "password")
     @Mapping(source = "email", target = "email")

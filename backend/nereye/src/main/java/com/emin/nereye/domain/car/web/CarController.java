@@ -5,44 +5,47 @@ import com.emin.nereye.domain.car.api.CarDto;
 import com.emin.nereye.domain.car.api.CarService;
 import com.emin.nereye.domain.car.impl.Car;
 import com.emin.nereye.domain.color.api.ColorService;
-import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/car")
+@RequestMapping("/api/car")
 public class CarController {
     private CarService carService;
-    private BrandService brandService;
-    private ColorService colorService;
+    private final BrandService brandService;
+    private final ColorService colorService;
 
     @Autowired
     public CarController(CarService carService,
                          BrandService brandService,
-                         ColorService colorService
-                         ) {
+                         ColorService colorService) {
         this.brandService = brandService;
         this.carService = carService;
         this.colorService = colorService;
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/get/{id}")
     public CarDto getCar(@PathVariable int id){
 
         return carService.getCar(id);
     }
-    @GetMapping("/carlist")
+    @GetMapping("/getAll")
     public List<CarDto> carList() {
         List<CarDto> cars = carService.getAll(carService.findAll());
         return cars;
     }
 
-    @PutMapping("/update-car/{id}")
-    public void updateCar(@PathVariable Integer id, CarDto car) {
-        carService.update(id, car);
+    @PutMapping("/update")
+    public void updateCar( CarDto car) {
+        carService.update( car);
 
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public void delete(@PathVariable Integer id) {
+        carService.deleteById(id);
     }
 
     @PostMapping("/save")

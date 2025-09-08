@@ -1,6 +1,9 @@
 package com.emin.nereye.domain.advertisement.impl;
 import com.emin.nereye.domain.advertisement.api.AdvertisementDto;
 import com.emin.nereye.domain.advertisement.api.AdService;
+import com.emin.nereye.domain.user.impl.User;
+import com.emin.nereye.domain.user.impl.UserRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,11 +17,13 @@ public class AdServiceImpl implements AdService {
 
     private final AdvertisementMapper advertisementMapper;
     private AdRepository adRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    public AdServiceImpl(AdRepository adRepository, AdvertisementMapper advertisementMapper) {
+    public AdServiceImpl(AdRepository adRepository, AdvertisementMapper advertisementMapper,UserRepository userRepository) {
         this.adRepository = adRepository;
         this.advertisementMapper = advertisementMapper;
+        this.userRepository=userRepository;
     }
 
     @Override
@@ -48,15 +53,26 @@ public class AdServiceImpl implements AdService {
 
     @Override
     @Transactional
-    public AdvertisementDto save(AdvertisementDto ad) {
-        adRepository.save(advertisementMapper.toAd(ad));
-        return ad;
+    public AdvertisementDto save(AdvertisementDto ad, int userId) {
+           Advertisement advert = advertisementMapper.toAd(ad);
+        User owner = (userRepository.findById(userId))
+                .orElseThrow(() -> new RuntimeException("Kullanıcı bulunamadı"));
+        advert.setOwner(owner);
+        Advertisement saved = adRepository.save(advert);
+
+        return advertisementMapper.toAdDto(saved);
     }
 
     @Override
-    public AdvertisementDto update(int theId, AdvertisementDto dto) {
-        Advertisement ad = findById(theId);
-        ad = advertisementMapper.toAd(dto);
+    public AdvertisementDto update( AdvertisementDto dto) {
+        Advertisement ad=null;
+        try {
+            ad = findById(dto.getAd_id());
+       }
+       catch (Exception ex)
+       {
+           throw new EntityNotFoundException("İlan bulunamadı");
+       }
         adRepository.save(ad);
         return advertisementMapper.toAdDto(ad);
 

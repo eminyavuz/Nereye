@@ -52,7 +52,7 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public void update(Integer theId, CarDto dto) {
+    public void update( CarDto dto) {
 
         carRepository.save(carMapper.toCar(dto));
 

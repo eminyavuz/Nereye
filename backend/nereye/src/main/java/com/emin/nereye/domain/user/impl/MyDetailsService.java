@@ -21,7 +21,7 @@ public class MyDetailsService implements UserDetailsService {
     }
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        System.out.println("MY Details servvice ");
+
         System.out.println("username= "+username);
 
         User user = repo.findByUsername(username);
@@ -30,7 +30,7 @@ public class MyDetailsService implements UserDetailsService {
         System.out.println(userDto);
 
         if(user== null){
-            System.out.println("Kullanıcı bulunamadı myD");
+
             throw new UsernameNotFoundException("Kullanıcı bulunamadıMYd");
         }
         return new UserPrincipal(userDto);

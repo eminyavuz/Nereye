@@ -2,6 +2,7 @@ package com.emin.nereye.domain.advertisement.api;
 
 
 import com.emin.nereye.domain.advertisement.impl.Advertisement;
+import org.springframework.security.core.Authentication;
 
 import java.util.List;
 
@@ -12,9 +13,9 @@ public interface AdService {
 
     void deleteById(int theId);
 
-    AdvertisementDto save(AdvertisementDto ad);
+    AdvertisementDto save(AdvertisementDto ad, int userId);
 
-    AdvertisementDto update(int theId, AdvertisementDto dto);
+    AdvertisementDto update( AdvertisementDto dto);
 
     AdvertisementDto getAd(int id);
 

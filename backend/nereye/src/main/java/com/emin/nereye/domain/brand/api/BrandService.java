@@ -11,7 +11,7 @@ public interface BrandService {
 
     void save(BrandDto brand);
 
-    BrandDto update(int theId, BrandDto dto);
+    BrandDto update( BrandDto dto);
 
     BrandDto getBrand(int id);
 

@@ -13,7 +13,7 @@ const Login = () => {
   });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const { isLoggedIn, login } = useContext(AuthContext);
+  const { isLoggedIn, login, updateRole } = useContext(AuthContext);
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -36,9 +36,32 @@ const Login = () => {
     try {
       const response = await userService.login(formData);
       if (response && response.data && response.data.token) {
-        console.log('Gelen token:', response.data.token); // Doğru şekilde tokeni logla
-        login(response.data.token); // Context güncellenir, Navbar otomatik render olur
-        console.log('Giriş başarılı'); // Başarılı giriş mesajı
+        console.log('Gelen token:', response.data.token);
+        
+        // Önce token'ı kaydet
+        login(response.data.token, 'USER'); // Geçici olarak USER rolü ver
+        
+        // Sonra kullanıcı bilgilerini al ve rolü güncelle
+        try {
+          console.log('getCurrentUser çağrısı yapılıyor...');
+          const userInfo = await userService.getCurrentUser();
+          console.log('getCurrentUser response:', userInfo);
+          console.log('getCurrentUser data:', userInfo?.data);
+          
+          const userRole = userInfo?.data?.role || 'USER';
+          console.log('Kullanıcı rolü (raw):', userRole, 'tip:', typeof userRole);
+          
+          // Eğer role sayısal değer ise (0 veya 1), string'e çevir
+          const roleString = typeof userRole === 'number' ? (userRole === 1 ? 'ADMIN' : 'USER') : userRole;
+          console.log('Dönüştürülmüş rol:', roleString);
+          
+          // Rolü güncelle
+          updateRole(roleString);
+          console.log('Giriş başarılı, rol güncellendi:', roleString);
+        } catch (roleError) {
+          console.log('Rol bilgisi alınamadı, varsayılan USER rolü kullanılıyor:', roleError);
+        }
+        
         navigate('/');
       } else {
         setError('Token alınamadı!');

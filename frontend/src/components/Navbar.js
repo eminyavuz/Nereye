@@ -8,7 +8,7 @@ function Navbar({ siteName }) {
   const [scrolled, setScrolled] = useState(false);
   const [visible, setVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
-  const { isLoggedIn, logout } = useContext(AuthContext);
+  const { isLoggedIn, logout, isAdmin } = useContext(AuthContext);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -39,7 +39,9 @@ function Navbar({ siteName }) {
   return (
     <nav className={`navbar${scrolled ? ' scrolled' : ''}${visible ? ' visible' : ' hidden'}`}>
       <div className="navbar-left">
-        <div className="site-name">{siteName || 'Nereye'}</div>
+        <div className="site-name">
+          <Link to="/home">{siteName}</Link>
+        </div>
       </div>
       <div className="navbar-right">
         <Link to="/home" className="nav-link">Ana Sayfa</Link>
@@ -52,9 +54,10 @@ function Navbar({ siteName }) {
           <>
             <Link to="/create-advertisement" className="nav-link">İlan Oluştur</Link>
             <Link to="/profile" className="nav-link">Profil</Link>
+            {isAdmin && (
+              <Link to="/admin" className="nav-link admin-link">Admin Panel</Link>
+            )}
             <button onClick={handleLogout} className="nav-link logout-button">Çıkış Yap</button>
-            {/* Debug için geçici */}
-            
           </>
         )}
       </div>

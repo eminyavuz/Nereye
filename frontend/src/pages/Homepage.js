@@ -56,7 +56,7 @@ const Homepage = () => {
 
   const filteredCars = cars.filter(car => {
     const matchesSearch = car.name.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesBrand = selectedBrand === 'Tümü' || car.brand === selectedBrand;
+    const matchesBrand = selectedBrand === 'Tümü' /*|| car.brand === selectedBrand*/;
     return matchesSearch && matchesBrand;
   });
 
@@ -64,7 +64,7 @@ const Homepage = () => {
     <div className="homepage">
       <Navbar isLoggedIn={true} siteName="Nereye" fontFamily="Poppins" />
       <div className="banner">
-        <h1>Hayalinizdeki Araca Kavuşun</h1>
+        <h1>Sen Nereye istersen Oraya</h1>
         <p>En uygun fiyatlarla, en kaliteli araçları sizlerle buluşturuyoruz.</p>
       </div>
 

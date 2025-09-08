@@ -30,11 +30,11 @@ public class UserServiceImpl implements UserService {
     private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, UserMapper userMapper, AuthenticationManager authenticationManager,JWTService jwtService) {
+    public UserServiceImpl(UserRepository userRepository, UserMapper userMapper, AuthenticationManager authenticationManager, JWTService jwtService) {
         this.userRepository = userRepository;
         this.userMapper = userMapper;
         this.authenticationManager = authenticationManager;
-        this.jwtService=jwtService;
+        this.jwtService = jwtService;
     }
 
     @Override
@@ -80,29 +80,26 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public UserDto update(UserDto user, int theId) {
-        User tmp = userMapper.toUser(findById(theId));
-        tmp = userMapper.toUser(user);
-        tmp.setId(theId);
+    public UserDto update(UserDto user) {
+        userRepository.save(userMapper.toUser(user));
 
-        userRepository.save(tmp);
-        return userMapper.toUserDto(tmp);
+        return user;
 
     }
 
     @Override
     public String verify(UserDto user) {
         System.out.println("Verify process started ");
+        User tmp = userRepository.findByUsername(user.getUser_name());
         Authentication authentication =
-                authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUser_name(),user.getPassword()));
-       if(authentication.isAuthenticated())
-       {
-           System.out.println("verify complated");
-           String token = jwtService.generateToken(user.getUser_name());
-           
-           System.out.println(token);
-           return token;
-       }
+                authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUser_name(), user.getPassword()));
+        if (authentication.isAuthenticated()) {
+            System.out.println("verify complated");
+            String token = jwtService.generateToken(tmp);
+
+            System.out.println(token);
+            return token;
+        }
         return "Failed";
     }
 }

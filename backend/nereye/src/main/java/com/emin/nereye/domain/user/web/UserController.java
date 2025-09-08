@@ -5,6 +5,7 @@ import com.emin.nereye.domain.user.api.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
 
 @RestController
@@ -54,9 +55,14 @@ public class UserController {
         return ResponseEntity.ok(userService.findById(id));
     }
 
-    @PutMapping("/update/{id}")
-    public ResponseEntity<UserDto> updateUser(@PathVariable int id, @RequestBody UserDto userDto) {
-        return ResponseEntity.ok(userService.update(userDto, id));
+    @PutMapping("/update")
+    public ResponseEntity<UserDto> updateUser(@RequestBody UserDto userDto) {
+        return ResponseEntity.ok(userService.update(userDto));
+    }
+
+    @GetMapping("/getAll")
+    public ResponseEntity<List<UserDto>> getAll() {
+        return ResponseEntity.ok(userService.findAll());
     }
 
     @PostMapping("/login")

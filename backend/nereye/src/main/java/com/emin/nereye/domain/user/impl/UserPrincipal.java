@@ -4,7 +4,6 @@ import com.emin.nereye.domain.user.api.UserDto;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -17,9 +16,16 @@ public class UserPrincipal implements UserDetails {
         this.user=user;
     }
 
+    public UserDto getUser() {
+        return user;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singleton(new SimpleGrantedAuthority("USER"));
+        if (user.getRole() != null) {
+            return Collections.singleton(new SimpleGrantedAuthority("ROLE_" + user.getRole().name()));
+        }
+        return Collections.singleton(new SimpleGrantedAuthority("ROLE_USER"));
     }
 
     @Override

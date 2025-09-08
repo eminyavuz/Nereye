@@ -12,7 +12,7 @@ public interface UserService {
 
     UserDto save(UserDto user);
 
-    UserDto update(UserDto user, int theId);
+    UserDto update(UserDto user);
 
     String verify (UserDto user);
 

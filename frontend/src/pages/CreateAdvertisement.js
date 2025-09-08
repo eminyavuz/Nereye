@@ -15,15 +15,15 @@ const CreateAdvertisement = () => {
     location: '',
     deposit: '',
     car: {
-      fuel_type: 'BENZIN',
+      fuel_type: 'Benzinli',
       km: '',
       gear_type: true,
       capacity: '',
       model: '',
       year: '',
       img_url: '',
-      brand: { id: '' },
-      color: { id: '' }
+      brand: {},
+      color: {}
     }
   });
 
@@ -52,21 +52,57 @@ const CreateAdvertisement = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    if (name.includes('.')) {
-      const [parent, child] = name.split('.');
-      setFormData(prev => ({
-        ...prev,
-        [parent]: {
-          ...prev[parent],
-          [child]: value
-        }
-      }));
-    } else {
-      setFormData(prev => ({
-        ...prev,
-        [name]: value
-      }));
+
+    const coerceBoolean = (v) => (v === true || v === 'true');
+
+    const path = name.split('.');
+    if (path.length === 1) {
+      setFormData(prev => ({ ...prev, [name]: value }));
+      return;
     }
+
+    if (path[0] === 'car') {
+      setFormData(prev => {
+        const nextCar = { ...prev.car };
+
+        if (path.length === 2) {
+          const field = path[1];
+          if (field === 'gear_type') {
+            nextCar.gear_type = coerceBoolean(value);
+          } else if (['km', 'capacity', 'year'].includes(field)) {
+            nextCar[field] = value === '' ? '' : Number(value);
+          } else if (field === 'fuel_type' || field === 'model' || field === 'img_url') {
+            nextCar[field] = value;
+          } else if (field === 'brand') {
+            try {
+              nextCar.brand = JSON.parse(value);
+            } catch (_) {
+              nextCar.brand = value;
+            }
+          } else if (field === 'color') {
+            try {
+              nextCar.color = JSON.parse(value);
+            } catch (_) {
+              nextCar.color = value;
+            }
+          }
+        } else if (path.length === 3) {
+          const obj = path[1];
+          const key = path[2];
+          if (obj === 'brand' && key === 'id') {
+            nextCar.brand = { id: value === '' ? '' : Number(value) };
+          }
+          if (obj === 'color' && (key === 'color_id' || key === 'id')) {
+            nextCar.color = { color_id: value === '' ? '' : Number(value) };
+          }
+        }
+
+        return { ...prev, car: nextCar };
+      });
+      return;
+    }
+
+    setFormData(prev => ({ ...prev, [name]: value }));
   };
 
   const handleImageSelect = async (e) => {
@@ -132,6 +168,22 @@ const CreateAdvertisement = () => {
     setError('');
 
     try {
+      // Token kontrolü
+      const token = localStorage.getItem('token');
+      if (!token) {
+        setError('Giriş yapmanız gerekiyor.');
+        setLoading(false);
+        return;
+      }
+      console.log('Token mevcut:', token);
+      
+      // Token format kontrolü
+      if (!token.startsWith('eyJ')) {
+        setError('Geçersiz token formatı. Lütfen tekrar giriş yapın.');
+        setLoading(false);
+        return;
+      }
+
       // Resim yüklenmemişse hata ver
       if (!formData.car.img_url) {
         setError('Lütfen önce araç resmini yükleyin.');
@@ -139,12 +191,17 @@ const CreateAdvertisement = () => {
         return;
       }
 
+      console.log('İlan verisi gönderiliyor:', formData);
       await advertisementService.create(formData);
       alert('İlan başarıyla oluşturuldu!');
       navigate('/home');
     } catch (error) {
       console.error('İlan oluşturma hatası:', error);
-      setError('İlan oluşturulurken bir hata oluştu. Lütfen tekrar deneyin.');
+      if (error.response?.status === 403) {
+        setError('Yetkilendirme hatası. Lütfen tekrar giriş yapın.');
+      } else {
+        setError('İlan oluşturulurken bir hata oluştu. Lütfen tekrar deneyin.');
+      }
     } finally {
       setLoading(false);
     }
@@ -277,10 +334,9 @@ const CreateAdvertisement = () => {
                   onChange={handleInputChange}
                   required
                 >
-                  <option value="BENZIN">Benzin</option>
-                  <option value="DIZEL">Dizel</option>
-                  <option value="ELEKTRIK">Elektrik</option>
-                  <option value="HYBRID">Hibrit</option>
+                  <option value="Benzinli">Benzinli</option>
+                  <option value="Dizel">Dizel</option>
+                  <option value="Elektrikli">Elektrikli</option>
                   <option value="LPG">LPG</option>
                 </select>
               </div>
@@ -294,8 +350,8 @@ const CreateAdvertisement = () => {
                   onChange={handleInputChange}
                   required
                 >
-                  <option value={true}>Otomatik</option>
-                  <option value={false}>Manuel</option>
+                  <option value="true">Otomatik</option>
+                  <option value="false">Manuel</option>
                 </select>
               </div>
             </div>
@@ -320,15 +376,15 @@ const CreateAdvertisement = () => {
                 <label htmlFor="color">Renk</label>
                 <select
                   id="color"
-                  name="car.color.id"
-                  value={formData.car.color.id}
+                  name="car.color.color_id"
+                  value={formData.car.color.color_id}
                   onChange={handleInputChange}
                   required
                 >
                   <option value="">Renk seçin</option>
                   {colors.map(color => (
-                    <option key={color.id} value={color.id}>
-                      {color.name || color.color_name}
+                    <option key={color.color_id || color.id} value={color.color_id || color.id}>
+                      {color.color_name || color.name}
                     </option>
                   ))}
                 </select>
@@ -371,7 +427,7 @@ const CreateAdvertisement = () => {
                       className="image-preview-upload"
                       disabled={uploadingImage}
                     >
-                      {uploadingImage ? 'Yükleniyor...' : 'Cloudinary\'ye Yükle'}
+                      {uploadingImage ? 'Yükleniyor...' : 'Yükle'}
                     </button>
                     <button
                       type="button"

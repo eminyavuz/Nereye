@@ -1,6 +1,7 @@
 package com.emin.nereye.domain.advertisement.impl;
 
 import com.emin.nereye.domain.car.impl.Car;
+import com.emin.nereye.domain.user.impl.User;
 import jakarta.persistence.*;
 
 @Entity
@@ -16,8 +17,16 @@ public class Advertisement {
     private String location;
     @Column(name = "deposit")
     private int deposit;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "owner_id", referencedColumnName = "id")
+    private User owner;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "tenet_id", referencedColumnName = "id")
+    private User tenet;
     @OneToOne(fetch = FetchType.LAZY,
             cascade = {
+                    CascadeType.PERSIST,
                     CascadeType.DETACH,
                     CascadeType.MERGE,
                     CascadeType.REFRESH,
@@ -30,11 +39,13 @@ public class Advertisement {
     public Advertisement(int daily_price,
                          String location,
                          int deposit,
-                         Car car) {
+                         Car car, User owner_id, User tenet_id) {
         this.daily_price = daily_price;
         this.location = location;
         this.deposit = deposit;
         this.car = car;
+        this.owner= owner_id;
+        this.tenet=tenet_id;
     }
 
     public Advertisement() {
@@ -71,6 +82,23 @@ public class Advertisement {
 
     public void setDeposit(int deposit) {
         this.deposit = deposit;
+    }
+
+
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
+    }
+
+    public User getTenet() {
+        return tenet;
+    }
+
+    public void setTenet(User tenet) {
+        this.tenet = tenet;
     }
 
     public Car getCar() {

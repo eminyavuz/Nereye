@@ -44,8 +44,23 @@
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
 }
 
+.site-name a {
+  color: #fff !important;
+  text-decoration: none;
+}
+
+.site-name a:visited,
+.site-name a:active {
+  color: #fff !important;
+  text-decoration: none;
+}
+
 .site-name:hover {
   color: #e1e1e1;
+}
+
+.site-name a:hover {
+  color: #e1e1e1 !important;
 }
 
 .navbar-right {
@@ -104,6 +119,21 @@
   background-color: rgba(255, 255, 255, 0.1);
   color: #fff;
   transform: translateY(-2px);
+}
+
+.admin-link {
+  background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(255, 107, 107, 0.3);
+  transition: all 0.3s ease;
+}
+
+.admin-link:hover {
+  background: linear-gradient(45deg, #ff5252, #ff7979);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 107, 107, 0.4);
 }
 
 /* Hamburger Menu */

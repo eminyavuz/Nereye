@@ -13,7 +13,7 @@ public interface CarService {
 
     Car save(Car car);
 
-    void update(Integer theId, CarDto dto);
+    void update(CarDto dto);
 
   CarDto getCar(int id);
 

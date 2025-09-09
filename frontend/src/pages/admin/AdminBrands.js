@@ -4,6 +4,7 @@ import { brandService } from '../../services/api';
 const AdminBrands = () => {
   const [items, setItems] = useState([]);
   const [form, setForm] = useState({ brand_name: '' });
+  const [editing, setEditing] = useState({});
 
   const load = async () => {
     const { data } = await brandService.getAll();
@@ -16,6 +17,15 @@ const AdminBrands = () => {
   const onDelete = async (id) => {
     if (!window.confirm('Silmek istediğinize emin misiniz?')) return;
     await brandService.delete(id);
+    load();
+  };
+
+  const onSave = async (item) => {
+    const id = item.id || item.brand_id;
+    const draft = editing[id];
+    if (!draft || !draft.brand_name) return;
+    await brandService.update(id, { brand_name: draft.brand_name });
+    setEditing((p)=>({ ...p, [id]: undefined }));
     load();
   };
 
@@ -46,8 +56,15 @@ const AdminBrands = () => {
             {items.map((x) => (
               <tr key={x.id || x.brand_id} style={{ borderBottom: '1px solid #eee' }}>
                 <td style={{ padding: 12 }}>{x.id || x.brand_id}</td>
-                <td style={{ padding: 12 }}>{x.brand_name || x.name}</td>
                 <td style={{ padding: 12 }}>
+                  <input
+                    value={(editing[x.id || x.brand_id]?.brand_name) ?? (x.brand_name || x.name) }
+                    onChange={(e)=>setEditing((p)=>({ ...p, [x.id || x.brand_id]: { brand_name: e.target.value } }))}
+                    style={{ padding: 8, borderRadius: 6, border: '1px solid #ddd', width: '100%' }}
+                  />
+                </td>
+                <td style={{ padding: 12, display: 'flex', gap: 8 }}>
+                  <button onClick={() => onSave(x)} style={{ padding: '6px 10px', borderRadius: 6, background: '#10b981', color: '#fff', border: 'none' }}>Güncelle</button>
                   <button onClick={() => onDelete(x.id || x.brand_id)} style={{ padding: '6px 10px', borderRadius: 6, background: '#ef4444', color: '#fff', border: 'none' }}>Sil</button>
                 </td>
               </tr>

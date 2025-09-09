@@ -1,62 +1,47 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
 import './Homepage.css';
+import { advertisementService, brandService } from '../services/api';
 
 const Homepage = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedBrand, setSelectedBrand] = useState('Tümü');
+  const [brands, setBrands] = useState(['Tümü']);
+  const [ads, setAds] = useState([]);
 
-  const brands = [
-    'Tümü',
-    'BMW',
-    'Mercedes',
-    'Audi',
-    'Volkswagen',
-    'Toyota',
-    'Honda',
-    'Ford',
-    'Renault'
-  ];
+  useEffect(() => {
+    (async () => {
+      try {
+        const [adsRes, brandsRes] = await Promise.all([
+          advertisementService.getAll(),
+          brandService.getAll()
+        ]);
+        const list = Array.isArray(adsRes.data) ? adsRes.data : (adsRes.data?.content || []);
+        setAds(list);
+        const brandList = Array.isArray(brandsRes.data) ? brandsRes.data : (brandsRes.data?.content || []);
+        setBrands(['Tümü', ...brandList.map(b => b.brand_name || b.name).filter(Boolean)]);
+      } catch (e) {
+        setAds([]);
+      }
+    })();
+  }, []);
 
-  const cars = [
-    {
-      id: 1,
-      name: 'BMW 320i',
-      brand: 'BMW',
-      image: 'https://images.unsplash.com/photo-1555215695-300b0ca6ba4d?auto=format&fit=crop&w=800&q=80',
-      price: '1200',
-      year: '2022',
-      transmission: 'Otomatik',
-      fuel: 'Benzin',
-      km: '15.000'
-    },
-    {
-      id: 2,
-      name: 'Mercedes C200',
-      brand: 'Mercedes',
-      image: 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=800&q=80',
-      price: '1500',
-      year: '2023',
-      transmission: 'Otomatik',
-      fuel: 'Benzin',
-      km: '8.000'
-    },
-    {
-      id: 3,
-      name: 'Audi A4',
-      brand: 'Audi',
-      image: 'https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?auto=format&fit=crop&w=800&q=80',
-      price: '1300',
-      year: '2022',
-      transmission: 'Otomatik',
-      fuel: 'Dizel',
-      km: '20.000'
+  const getSafeImageUrl = (url) => {
+    const placeholder = 'https://res.cloudinary.com/dqtkblhwr/image/upload/v1720000000/placeholder_car.png';
+    if (!url || typeof url !== 'string') return placeholder;
+    let u = url.trim();
+    if (u.startsWith('http://')) u = u.replace('http://', 'https://');
+    if (!u.startsWith('http')) {
+      // Public ID ya da relatif değer olabilir → Cloudinary tam URL'ye çevir
+      u = `https://res.cloudinary.com/dqtkblhwr/image/upload/${u}`;
     }
-  ];
+    return u;
+  };
 
-  const filteredCars = cars.filter(car => {
-    const matchesSearch = car.name.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesBrand = selectedBrand === 'Tümü' /*|| car.brand === selectedBrand*/;
+  const filteredAds = ads.filter(ad => {
+    const carName = `${ad.car?.brand?.brand_name || ''} ${ad.car?.model || ''}`.trim();
+    const matchesSearch = carName.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesBrand = selectedBrand === 'Tümü' || (ad.car?.brand?.brand_name === selectedBrand || ad.car?.brand?.name === selectedBrand);
     return matchesSearch && matchesBrand;
   });
 
@@ -97,36 +82,44 @@ const Homepage = () => {
         </div>
 
         <div className="car-list">
-          {filteredCars.map(car => (
-            <div key={car.id} className="car-card">
-              <img src={car.image} alt={car.name} className="car-image" />
+          {filteredAds.map((ad) => {
+            const name = `${ad.car?.brand?.brand_name || ad.car?.brand?.name || ''} ${ad.car?.model || ''}`.trim();
+            return (
+            <div key={ad.ad_id} className="car-card">
+              <img
+                src={getSafeImageUrl(ad.car?.img_url)}
+                alt={name}
+                className="car-image"
+                onError={(e)=>{ e.currentTarget.src = getSafeImageUrl(''); }}
+              />
               <div className="car-details">
-                <h3>{car.name}</h3>
+                <h3>{name}</h3>
                 <div className="car-info">
                   <div className="car-info-item">
                     <i className="fas fa-calendar"></i>
-                    <span>{car.year}</span>
+                    <span>{ad.car?.year}</span>
                   </div>
                   <div className="car-info-item">
                     <i className="fas fa-cog"></i>
-                    <span>{car.transmission}</span>
+                    <span>{ad.car?.gear_type ? 'Otomatik' : 'Manuel'}</span>
                   </div>
                   <div className="car-info-item">
                     <i className="fas fa-gas-pump"></i>
-                    <span>{car.fuel}</span>
+                    <span>{ad.car?.fuel_type}</span>
                   </div>
                   <div className="car-info-item">
                     <i className="fas fa-tachometer-alt"></i>
-                    <span>{car.km} km</span>
+                    <span>{ad.car?.km} km</span>
                   </div>
                 </div>
                 <div className="car-price">
-                  {car.price} TL <span>/ günlük</span>
+                  {ad.daily_price} TL <span>/ günlük</span>
                 </div>
                 <button className="rent-button">Kirala</button>
               </div>
             </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </div>

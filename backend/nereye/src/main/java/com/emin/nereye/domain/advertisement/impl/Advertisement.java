@@ -2,10 +2,12 @@ package com.emin.nereye.domain.advertisement.impl;
 
 import com.emin.nereye.domain.car.impl.Car;
 import com.emin.nereye.domain.user.impl.User;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "ad")
+@JsonIgnoreProperties({"owner","tenet"})
 public class Advertisement {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

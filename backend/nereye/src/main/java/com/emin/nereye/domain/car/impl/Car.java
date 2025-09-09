@@ -3,6 +3,7 @@ package com.emin.nereye.domain.car.impl;
 import com.emin.nereye.domain.brand.impl.Brand;
 import com.emin.nereye.domain.color.impl.Color;
 import com.emin.nereye.enumeration.FuelType;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,6 +14,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIgnoreProperties({"brand","color"})
 public class Car {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

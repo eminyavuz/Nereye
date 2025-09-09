@@ -85,7 +85,7 @@ export const carService = {
   getAll: () => api.get('/car/getAll'),
   getById: (id) => api.get(`/car/get/${id}`),
   create: (carData) => api.post('/car/save', carData),
-  update: (id, data) => api.put(`/car/update/${id}`, data),
+  update: (data) => api.put('/car/update', data),
   delete: (id) => api.delete(`/car/delete/${id}`)
 };
 

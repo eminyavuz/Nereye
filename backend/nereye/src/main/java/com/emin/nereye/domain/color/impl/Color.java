@@ -1,12 +1,14 @@
 package com.emin.nereye.domain.color.impl;
 
 import com.emin.nereye.domain.car.impl.Car;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@JsonIgnoreProperties({"cars"})
 public class Color {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

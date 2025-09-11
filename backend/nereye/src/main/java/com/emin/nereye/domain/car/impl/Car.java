@@ -1,5 +1,6 @@
 package com.emin.nereye.domain.car.impl;
 
+import com.emin.nereye.domain.advertisement.impl.Advertisement;
 import com.emin.nereye.domain.brand.impl.Brand;
 import com.emin.nereye.domain.color.impl.Color;
 import com.emin.nereye.enumeration.FuelType;
@@ -24,15 +25,15 @@ public class Car {
     @Column(name = "fuel_type")
     private FuelType fuel_type;
     @Column(name = "km")
-    private int km;
+    private Integer km;
     @Column(name = "gear_type")
     private boolean gear_type;
     @Column(name = "capacity")
-    private int capacity;
+    private Integer capacity;
     @Column(name = "model")
     private String model;
     @Column(name = "year")
-    private int year;
+    private Integer year;
     @Column(name = "img_url")
     private String img_url;
     @ManyToOne(fetch = FetchType.EAGER, cascade =
@@ -55,5 +56,7 @@ public class Car {
                     })
     @JoinColumn(name = "color_id")
     private Color color;
+    @OneToOne(mappedBy = "car", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Advertisement advertisement;
 
 }

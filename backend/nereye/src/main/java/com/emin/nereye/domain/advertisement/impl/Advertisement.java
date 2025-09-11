@@ -4,6 +4,7 @@ import com.emin.nereye.domain.car.impl.Car;
 import com.emin.nereye.domain.user.impl.User;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import org.hibernate.action.internal.OrphanRemovalAction;
 
 @Entity
 @Table(name = "ad")
@@ -26,15 +27,10 @@ public class Advertisement {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tenet_id", referencedColumnName = "id")
     private User tenet;
-    @OneToOne(fetch = FetchType.LAZY,
-            cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.DETACH,
-                    CascadeType.MERGE,
-                    CascadeType.REFRESH,
-            })
-    private Car car;
 
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "car_id", referencedColumnName = "id")
+    private Car car;
     // Contsturctors
 
 

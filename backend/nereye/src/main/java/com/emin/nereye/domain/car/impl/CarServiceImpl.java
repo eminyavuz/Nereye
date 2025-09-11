@@ -47,8 +47,10 @@ public class CarServiceImpl implements CarService {
 
     @Override
     @Transactional
-    public Car save(Car car) {
-        return carRepository.save(car);
+    public CarDto save(CarDto car)
+    {
+        carRepository.save(carMapper.toCar(car));
+        return car;
     }
 
     @Override

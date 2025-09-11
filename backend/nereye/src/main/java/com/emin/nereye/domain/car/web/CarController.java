@@ -49,9 +49,9 @@ public class CarController {
     }
 
     @PostMapping("/save")
-    public Car save(@RequestBody Car car) {
-        Car dbCar = carService.save(car);
-        return dbCar;
+    public CarDto save(@RequestBody CarDto car) {
+        carService.save(car);
+        return car;
     }
 
 }

@@ -1,6 +1,10 @@
 package com.emin.nereye.domain.advertisement.impl;
-import com.emin.nereye.domain.advertisement.api.AdvertisementDto;
+
 import com.emin.nereye.domain.advertisement.api.AdService;
+import com.emin.nereye.domain.advertisement.api.AdvertisementDto;
+import com.emin.nereye.domain.car.api.CarService;
+import com.emin.nereye.domain.car.impl.Car;
+import com.emin.nereye.domain.car.impl.CarMapper;
 import com.emin.nereye.domain.user.impl.User;
 import com.emin.nereye.domain.user.impl.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -17,13 +21,17 @@ public class AdServiceImpl implements AdService {
 
     private final AdvertisementMapper advertisementMapper;
     private AdRepository adRepository;
+    private CarService carService;
+    private CarMapper carMapper;
     private UserRepository userRepository;
 
     @Autowired
-    public AdServiceImpl(AdRepository adRepository, AdvertisementMapper advertisementMapper,UserRepository userRepository) {
+    public AdServiceImpl(CarMapper carMapper, AdRepository adRepository, AdvertisementMapper advertisementMapper, UserRepository userRepository, CarService carService) {
         this.adRepository = adRepository;
         this.advertisementMapper = advertisementMapper;
-        this.userRepository=userRepository;
+        this.userRepository = userRepository;
+        this.carService = carService;
+        this.carMapper = carMapper;
     }
 
     @Override
@@ -54,25 +62,27 @@ public class AdServiceImpl implements AdService {
     @Override
     @Transactional
     public AdvertisementDto save(AdvertisementDto ad, int userId) {
-           Advertisement advert = advertisementMapper.toAd(ad);
-        User owner = (userRepository.findById(userId))
+        Advertisement advert = advertisementMapper.toAd(ad);
+
+        User owner = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("Kullanıcı bulunamadı"));
         advert.setOwner(owner);
+
+        Car savedCar = carMapper.toCar(carService.save(ad.getCar()));
+        advert.setCar(savedCar);
         Advertisement saved = adRepository.save(advert);
 
         return advertisementMapper.toAdDto(saved);
     }
 
     @Override
-    public AdvertisementDto update( AdvertisementDto dto) {
-        Advertisement ad=null;
+    public AdvertisementDto update(AdvertisementDto dto) {
+        Advertisement ad = null;
         try {
             ad = findById(dto.getAd_id());
-       }
-       catch (Exception ex)
-       {
-           throw new EntityNotFoundException("İlan bulunamadı");
-       }
+        } catch (Exception ex) {
+            throw new EntityNotFoundException("İlan bulunamadı");
+        }
         adRepository.save(ad);
         return advertisementMapper.toAdDto(ad);
 

@@ -4,11 +4,10 @@ import com.emin.nereye.domain.car.impl.Car;
 import com.emin.nereye.domain.user.impl.User;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import org.hibernate.action.internal.OrphanRemovalAction;
 
 @Entity
 @Table(name = "ad")
-@JsonIgnoreProperties({"owner","tenet"})
+@JsonIgnoreProperties({"owner", "tenet"})
 public class Advertisement {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,8 +41,8 @@ public class Advertisement {
         this.location = location;
         this.deposit = deposit;
         this.car = car;
-        this.owner= owner_id;
-        this.tenet=tenet_id;
+        this.owner = owner_id;
+        this.tenet = tenet_id;
     }
 
     public Advertisement() {

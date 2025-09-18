@@ -1,8 +1,11 @@
 package com.emin.nereye.domain.user.impl;
+
 import com.emin.nereye.enumeration.Role;
 import com.emin.nereye.enumeration.RoleConverter;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "user")

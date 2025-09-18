@@ -30,5 +30,4 @@ public interface UserMapper {
     UserDto toUserDto(User entity);
 
 
-
 }

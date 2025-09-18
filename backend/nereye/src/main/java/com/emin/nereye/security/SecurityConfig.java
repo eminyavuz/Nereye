@@ -37,11 +37,11 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults())
                 .csrf(customizer -> customizer.disable())
                 .authorizeHttpRequests
-                        (request-> request
-                                .requestMatchers("/api/user/login","/api/user/save","/api/auth")
+                        (request -> request
+                                .requestMatchers("/api/user/login", "/api/user/save", "/api/auth")
                                 .permitAll()
                                 .requestMatchers("/api/auth/**", "/api/public/**").permitAll()
-                                .requestMatchers("/api/brand/getAll", "/api/color/getAll","/api/car/getAll", "/api/advertisement/getAll").permitAll()
+                                .requestMatchers("/api/brand/getAll", "/api/color/getAll", "/api/car/getAll", "/api/advertisement/getAll").permitAll()
                                 .requestMatchers("/api/admin/**").hasRole("ADMIN")
                                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                                 .anyRequest().authenticated())
@@ -49,7 +49,6 @@ public class SecurityConfig {
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
-
 
 
     }
@@ -62,6 +61,7 @@ public class SecurityConfig {
         return provider;
 
     }
+
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();

@@ -13,7 +13,7 @@ public class UserPrincipal implements UserDetails {
     private UserDto user;
 
     public UserPrincipal(UserDto user) {
-        this.user=user;
+        this.user = user;
     }
 
     public UserDto getUser() {

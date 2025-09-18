@@ -1,4 +1,5 @@
 package com.emin.nereye.domain.color.api;
+
 import java.util.List;
 
 public interface ColorService {
@@ -14,7 +15,7 @@ public interface ColorService {
 
     ColorDto getColor(ColorDto color);
 
-   // List<Color> getAll(List<Color> colors);
+    // List<Color> getAll(List<Color> colors);
 
 
 }

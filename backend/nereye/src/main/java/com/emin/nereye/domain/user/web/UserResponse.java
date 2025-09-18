@@ -1,4 +1,5 @@
 package com.emin.nereye.domain.user.web;
+
 import com.emin.nereye.enumeration.Role;
 import com.emin.nereye.response.BaseResponse;
 import lombok.AllArgsConstructor;
@@ -16,7 +17,6 @@ public class UserResponse extends BaseResponse {
     private String last_name;
     private String user_email;
     private Role role;
-
 
 
 }

@@ -1,13 +1,13 @@
 package com.emin.nereye.domain.car.api;
+
 import com.emin.nereye.domain.car.impl.Car;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface CarService {
     List<Car> findAll();
 
- Car findById(Integer theId);
+    Car findById(Integer theId);
 
     void deleteById(Integer theId);
 
@@ -15,7 +15,7 @@ public interface CarService {
 
     void update(CarDto dto);
 
-  CarDto getCar(int id);
+    CarDto getCar(int id);
 
     List<CarDto> getAll(List<Car> cars);
 

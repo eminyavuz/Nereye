@@ -1,9 +1,10 @@
 package com.emin.nereye.domain.user.api;
+
 import java.util.List;
-import java.util.Optional;
 
 public interface UserService {
     List<UserDto> findAll();
+
     UserDto findByUsername(String username);
 
     UserDto findById(int theId);
@@ -14,7 +15,7 @@ public interface UserService {
 
     UserDto update(UserDto user);
 
-    String verify (UserDto user);
+    String verify(UserDto user);
 
 }
 

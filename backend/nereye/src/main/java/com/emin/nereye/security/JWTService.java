@@ -17,6 +17,7 @@ import java.util.function.Function;
 
 public class JWTService {
     private String secretkey = "mySecretKey123456789012345678901234567890123456789012345678901234567890";
+
     public JWTService() {
         // Sabit secret key kullanıyoruz
     }
@@ -30,12 +31,13 @@ public class JWTService {
                 .add(claims)
                 .subject(user.getUser_name())
                 .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(new Date(System.currentTimeMillis() +1000 * 60 * 30))
+                .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 30))
                 .and()
                 .signWith(getKey())
                 .compact();
 
     }
+
     public Integer extractUserId(String token) {
         Claims claims = Jwts.parser()
                 .setSigningKey(getKey())

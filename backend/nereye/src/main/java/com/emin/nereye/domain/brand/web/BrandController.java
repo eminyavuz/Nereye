@@ -19,7 +19,7 @@ public class BrandController {
 
     @PostMapping("/save")
     public void save(@RequestBody BrandDto brand) {
-         brandService.save(brand);
+        brandService.save(brand);
 
     }
 
@@ -45,6 +45,6 @@ public class BrandController {
 
     @PutMapping("/update")
     public BrandDto update(@RequestBody BrandDto dto) {
-        return brandService.update( dto);
+        return brandService.update(dto);
     }
 }

@@ -22,9 +22,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private final UserRepository userRepository;
     @Autowired
-    AuthenticationManager authenticationManager;
-    @Autowired
     private final UserMapper userMapper;
+    @Autowired
+    AuthenticationManager authenticationManager;
     @Autowired
     private JWTService jwtService;
     private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);

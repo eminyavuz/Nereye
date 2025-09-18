@@ -1,5 +1,7 @@
 package com.emin.nereye.domain.brand.api;
+
 import com.emin.nereye.domain.brand.impl.Brand;
+
 import java.util.List;
 
 public interface BrandService {
@@ -11,7 +13,7 @@ public interface BrandService {
 
     void save(BrandDto brand);
 
-    BrandDto update( BrandDto dto);
+    BrandDto update(BrandDto dto);
 
     BrandDto getBrand(int id);
 

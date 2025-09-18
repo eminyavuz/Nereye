@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonIgnoreProperties({"brand","color"})
+@JsonIgnoreProperties({"brand", "color"})
 public class Car {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

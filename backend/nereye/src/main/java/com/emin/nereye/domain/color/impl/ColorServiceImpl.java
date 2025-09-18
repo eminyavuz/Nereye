@@ -1,9 +1,11 @@
 package com.emin.nereye.domain.color.impl;
+
 import com.emin.nereye.domain.color.api.ColorDto;
 import com.emin.nereye.domain.color.api.ColorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -25,8 +27,7 @@ public class ColorServiceImpl implements ColorService {
     public List<ColorDto> findAll() {
         List<Color> colors = colorRepository.findAll();
         List<ColorDto> dto = new ArrayList<>();
-        for (Color c : colors)
-        {
+        for (Color c : colors) {
             dto.add(colorMapper.toColorDto(c));
 
         }
@@ -48,7 +49,7 @@ public class ColorServiceImpl implements ColorService {
 
     public ColorDto getColor(Color color) {
 
-        return  colorMapper.toColorDto(color);
+        return colorMapper.toColorDto(color);
     }
 
    /* @Override

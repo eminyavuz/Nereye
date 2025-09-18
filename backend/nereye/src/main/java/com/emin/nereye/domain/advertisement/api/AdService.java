@@ -2,7 +2,6 @@ package com.emin.nereye.domain.advertisement.api;
 
 
 import com.emin.nereye.domain.advertisement.impl.Advertisement;
-import org.springframework.security.core.Authentication;
 
 import java.util.List;
 
@@ -15,9 +14,15 @@ public interface AdService {
 
     AdvertisementDto save(AdvertisementDto ad, int userId);
 
-    AdvertisementDto update( AdvertisementDto dto);
+    AdvertisementDto update(AdvertisementDto dto);
 
     AdvertisementDto getAd(int id);
 
+    public List<AdvertisementDto> getMyAds(String Token);
+
+    public List<AdvertisementDto> getMyRentedAds(String Token);
+
     List<AdvertisementDto> getAll(List<Advertisement> adList);
+
+    AdvertisementDto rent(AdvertisementDto dto, Integer tenantId);
 }

@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 
 public class BaseError {
     private int status;
-    private  String message;
-    private  long timeStamp;
+    private String message;
+    private long timeStamp;
 
 }

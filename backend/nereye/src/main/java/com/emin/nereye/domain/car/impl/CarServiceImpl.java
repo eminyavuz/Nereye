@@ -1,4 +1,5 @@
 package com.emin.nereye.domain.car.impl;
+
 import com.emin.nereye.domain.car.api.CarDto;
 import com.emin.nereye.domain.car.api.CarService;
 import jakarta.persistence.EntityNotFoundException;
@@ -28,7 +29,7 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public  Car findById(Integer theId) {
+    public Car findById(Integer theId) {
         Optional<Car> result = carRepository.findById(theId);
         Car car = null;
         if (result.isPresent()) {
@@ -47,14 +48,13 @@ public class CarServiceImpl implements CarService {
 
     @Override
     @Transactional
-    public CarDto save(CarDto car)
-    {
+    public CarDto save(CarDto car) {
         carRepository.save(carMapper.toCar(car));
         return car;
     }
 
     @Override
-    public void update( CarDto dto) {
+    public void update(CarDto dto) {
 
         carRepository.save(carMapper.toCar(dto));
 

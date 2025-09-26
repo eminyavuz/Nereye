@@ -78,7 +78,8 @@ public class AdServiceImpl implements AdService {
                 .orElseThrow(() -> new RuntimeException("Kullanıcı bulunamadı"));
         advert.setOwner(owner);
 
-        Car savedCar = carMapper.toCar(carService.save(ad.getCar()));
+      //  Car savedCar = carMapper.toCar(carService.save(ad.getCar()));
+        Car savedCar= carMapper.toCar(ad.getCar());
         advert.setCar(savedCar);
         Advertisement saved = adRepository.save(advert);
 
@@ -105,10 +106,11 @@ public class AdServiceImpl implements AdService {
     }
 
     @Override
-    public List<AdvertisementDto> getMyAds(String token) {
-        Integer id = jwtService.extractUserId(token);
-        List<Advertisement> tmp = adRepository.findByOwner_Id(id);
-        List<AdvertisementDto> myAds = null;
+    public List<AdvertisementDto> getMyAds(String username) {
+        User user = userRepository.findByUsername(username);
+        List<Advertisement> tmp = adRepository.findByOwner_Id(user.getId());
+
+        List<AdvertisementDto> myAds = new ArrayList<>();
         for (Advertisement ad : tmp) {
             myAds.add(advertisementMapper.toAdDto(ad));
         }
@@ -116,10 +118,11 @@ public class AdServiceImpl implements AdService {
     }
 
     @Override
-    public List<AdvertisementDto> getMyRentedAds(String token) {
-        Integer id = jwtService.extractUserId(token);
-        List<Advertisement> tmp = adRepository.findByTenet_Id(id);
-        List<AdvertisementDto> myAds = null;
+    public List<AdvertisementDto> getMyRentedAds(String username) {
+        User user = userRepository.findByUsername(username);
+        List<Advertisement> tmp = adRepository.findByTenet_Id(user.getId());
+
+        List<AdvertisementDto> myAds = new ArrayList<>();
         for (Advertisement ad : tmp) {
             myAds.add(advertisementMapper.toAdDto(ad));
         }

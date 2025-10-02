@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import Navbar from '../components/Navbar';
 import './Homepage.css';
 import { advertisementService, brandService } from '../services/api';
+import { AuthContext } from '../context/AuthContext';
 
 const Homepage = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedBrand, setSelectedBrand] = useState('Tümü'); // Başlangıçta 'Tümü' seçili
   const [brands, setBrands] = useState(['Tümü']); // 'Tümü' başta
   const [ads, setAds] = useState([]);
+  const { isLoggedIn, user } = useContext(AuthContext);
 
   useEffect(() => {
     (async () => {
@@ -28,6 +30,7 @@ const Homepage = () => {
     })();
   }, []);
 
+
   const getSafeImageUrl = (url) => {
     const placeholder = 'https://res.cloudinary.com/dqtkblhwr/image/upload/v1720000000/placeholder_car.png';
     if (!url || typeof url !== 'string') return placeholder;
@@ -39,12 +42,44 @@ const Homepage = () => {
     return u;
   };
 
+  const handleRent = async (ad) => {
+    if (!isLoggedIn || !user) {
+      alert('Kiralamak için giriş yapmanız gerekiyor.');
+      window.location.href = '/login';
+      return;
+    }
+
+    if (ad.owner_id === user.id) {
+      alert('Kendi ilanınızı kiralayamazsınız.');
+      return;
+    }
+
+    if (ad.tenet_id) {
+      alert('Bu araç zaten kiralanmış.');
+      return;
+    }
+
+    try {
+      console.log('Kiralama işlemi başlatılıyor:', { ad, userId: user.id });
+      const response = await advertisementService.rent(ad, user.id);
+      if (response.data) {
+        alert('Araç başarıyla kiralandı!');
+        // Sayfayı yenile veya ads listesini güncelle
+        window.location.reload();
+      }
+    } catch (error) {
+      console.error('Kiralama hatası:', error);
+      alert('Kiralama işlemi sırasında bir hata oluştu. Lütfen tekrar deneyin.');
+    }
+  };
+
   const filteredAds = ads.filter(ad => {
     const carName = `${ad.car?.brand?.brand_name || ''} ${ad.car?.model || ''}`.trim();
     const matchesSearch = carName.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesBrand =
       selectedBrand === 'Tümü' || ad.car?.brand?.brand_name === selectedBrand || ad.car?.brand?.name === selectedBrand;
-    return matchesSearch && matchesBrand;
+    const isAvailable = !ad.tenet_id; // Sadece kiralanmamış arabaları göster
+    return matchesSearch && matchesBrand && isAvailable;
   });
 
   return (
@@ -124,7 +159,13 @@ const Homepage = () => {
                   <div className="car-price">
                     {ad.daily_price} TL <span>/ günlük</span>
                   </div>
-                  <button className="rent-button">Kirala</button>
+                  <button 
+                    className="rent-button" 
+                    onClick={() => handleRent(ad)}
+                    disabled={ad.tenet_id || ad.owner_id === user?.id}
+                  >
+                    {ad.tenet_id ? 'Kiralanmış' : (ad.owner_id === user?.id ? 'Kendi İlanınız' : 'Kirala')}
+                  </button>
                 </div>
               </div>
             );

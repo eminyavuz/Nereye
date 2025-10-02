@@ -49,21 +49,31 @@ public class AdvertisementController {
     }
 
     @PutMapping("/rent")
-    public AdvertisementDto rent(@RequestBody AdvertisementDto dto, Integer id) {
+    public AdvertisementDto rent(@RequestBody AdvertisementDto dto, @RequestParam Integer id) {
         return adService.rent(dto, id);
     }
 
-    @GetMapping("/get-my-ads")
-    public List<AdvertisementDto> getMyAds(String token) {
+    @PutMapping("/cancel-rent/{adId}")
+    public AdvertisementDto cancelRent(@PathVariable int adId) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String username = auth.getName(); // veya direkt userId de olabilir
+        String username = auth.getName();
+        System.out.println("CancelRent - Username: " + username + ", AdId: " + adId);
+        return adService.cancelRent(adId, username);
+    }
+
+    @GetMapping("/get-my-ads")
+    public List<AdvertisementDto> getMyAds(Authentication authentication) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        System.out.println("GetMyAds - Username: " + username);
         return adService.getMyAds(username);
     }
 
     @GetMapping("/get-my-rented-ads")
-    public List<AdvertisementDto> getMyRentedAds(String token) {
+    public List<AdvertisementDto> getMyRentedAds(Authentication authentication) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String username = auth.getName(); // veya direkt userId de olabilir
+        String username = auth.getName();
+        System.out.println("GetMyRentedAds - Username: " + username);
         return adService.getMyRentedAds(username);
     }
 

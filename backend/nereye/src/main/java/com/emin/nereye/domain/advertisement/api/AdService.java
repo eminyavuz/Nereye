@@ -25,4 +25,6 @@ public interface AdService {
     List<AdvertisementDto> getAll(List<Advertisement> adList);
 
     AdvertisementDto rent(AdvertisementDto dto, Integer tenantId);
+
+    AdvertisementDto cancelRent(int adId, String username);
 }

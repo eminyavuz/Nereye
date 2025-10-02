@@ -12,6 +12,8 @@ public interface AdvertisementMapper {
     @Mapping(source = "deposit", target = "deposit")
     @Mapping(source = "location", target = "location")
     @Mapping(source = "car", target = "car")
+    @Mapping(source = "owner.id", target = "owner_id")
+    @Mapping(source = "tenet.id", target = "tenet_id")
     AdvertisementDto toAdDto(Advertisement ad);
 
     @Mapping(source = "ad_id", target = "ad_id")
@@ -19,7 +21,6 @@ public interface AdvertisementMapper {
     @Mapping(source = "deposit", target = "deposit")
     @Mapping(source = "location", target = "location")
     @Mapping(source = "car", target = "car")
+   
     Advertisement toAd(AdvertisementDto dto);
-
-
 }

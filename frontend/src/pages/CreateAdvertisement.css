@@ -3,6 +3,7 @@
   background: url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
   position: relative;
   padding: 2rem;
+  padding-top: 100px; /* Navbar'ın altında kalması için */
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -311,6 +312,7 @@
 @media (max-width: 768px) {
   .create-advertisement-container {
     padding: 1rem;
+    padding-top: 80px; /* Mobilde navbar yüksekliği */
   }
   
   .create-advertisement-card {

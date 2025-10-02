@@ -107,8 +107,15 @@ public class AdServiceImpl implements AdService {
 
     @Override
     public List<AdvertisementDto> getMyAds(String username) {
+        System.out.println("getMyAds called with username: " + username);
         User user = userRepository.findByUsername(username);
+        if (user == null) {
+            System.out.println("User not found for username: " + username);
+            return new ArrayList<>();
+        }
+        System.out.println("Found user: " + user.getId());
         List<Advertisement> tmp = adRepository.findByOwner_Id(user.getId());
+        System.out.println("Found " + tmp.size() + " ads for user");
 
         List<AdvertisementDto> myAds = new ArrayList<>();
         for (Advertisement ad : tmp) {
@@ -119,8 +126,15 @@ public class AdServiceImpl implements AdService {
 
     @Override
     public List<AdvertisementDto> getMyRentedAds(String username) {
+        System.out.println("getMyRentedAds called with username: " + username);
         User user = userRepository.findByUsername(username);
+        if (user == null) {
+            System.out.println("User not found for username: " + username);
+            return new ArrayList<>();
+        }
+        System.out.println("Found user: " + user.getId());
         List<Advertisement> tmp = adRepository.findByTenet_Id(user.getId());
+        System.out.println("Found " + tmp.size() + " rented ads for user");
 
         List<AdvertisementDto> myAds = new ArrayList<>();
         for (Advertisement ad : tmp) {
@@ -143,14 +157,64 @@ public class AdServiceImpl implements AdService {
     @Override
     @Transactional
     public AdvertisementDto rent(AdvertisementDto dto, Integer tenantId) {
-        if (!Objects.equals(dto.getOwner_id(), tenantId)) {
-            dto.setTenet_id(tenantId);
-            return update(dto);
-        } else if (tenantId == null) {
+        if (tenantId == null) {
             throw new RuntimeException("Kiracının Id'si alınamadı");
-        } else {
+        }
+
+        // İlanı yükle
+        Advertisement advertisement = findById(dto.getAd_id());
+
+        // Kendi ilanını kiralama kontrolü
+        if (advertisement.getOwner() != null && Objects.equals(advertisement.getOwner().getId(), tenantId)) {
             throw new RuntimeException("Kendi ilanınızı kiralayamazsınız");
         }
 
+        // Zaten kiralanmış mı?
+        if (advertisement.getTenet() != null) {
+            throw new RuntimeException("Bu ilan zaten kiralanmış");
+        }
+
+        // Kiracıyı ata ve kaydet
+        User tenant = userRepository.findById(tenantId)
+                .orElseThrow(() -> new RuntimeException("Kiracı kullanıcı bulunamadı"));
+        advertisement.setTenet(tenant);
+        Advertisement saved = adRepository.save(advertisement);
+
+        return advertisementMapper.toAdDto(saved);
+    }
+
+    @Override
+    @Transactional
+    public AdvertisementDto cancelRent(int adId, String username) {
+        try {
+            System.out.println("cancelRent called with adId: " + adId + ", username: " + username);
+            
+            // İlanı yükle
+            Advertisement advertisement = findById(adId);
+            System.out.println("Found advertisement: " + advertisement.getAd_id());
+            
+            // İlan sahibi kontrolü
+            User owner = userRepository.findByUsername(username);
+            if (owner == null) {
+                System.out.println("User not found: " + username);
+                throw new RuntimeException("Kullanıcı bulunamadı: " + username);
+            }
+            System.out.println("Found owner: " + owner.getId() + ", ad owner: " + (advertisement.getOwner() != null ? advertisement.getOwner().getId() : "null"));
+            
+            if (advertisement.getOwner() == null || !Objects.equals(advertisement.getOwner().getId(), owner.getId())) {
+                throw new RuntimeException("Bu ilanı iptal etme yetkiniz yok. İlan sahibi: " + (advertisement.getOwner() != null ? advertisement.getOwner().getId() : "null") + ", Sizin ID: " + owner.getId());
+            }
+            
+            // Kiracıyı çıkar
+            advertisement.setTenet(null);
+            Advertisement saved = adRepository.save(advertisement);
+            
+            System.out.println("Rental cancelled for ad: " + adId);
+            return advertisementMapper.toAdDto(saved);
+        } catch (Exception e) {
+            System.err.println("Error in cancelRent: " + e.getMessage());
+            e.printStackTrace();
+            throw e;
+        }
     }
 }

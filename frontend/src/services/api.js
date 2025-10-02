@@ -78,7 +78,11 @@ export const advertisementService = {
   getAll: () => api.get('/advertisement/getAll'),
   getById: (id) => api.get(`/advertisement/get/${id}`),
   update: (id, data) => api.put(`/advertisement/update/${id}`, data),
-  delete: (id) => api.delete(`/advertisement/delete/${id}`)
+  delete: (id) => api.delete(`/advertisement/delete/${id}`),
+  rent: (advertisementData, tenantId) => api.put('/advertisement/rent', advertisementData, { params: { id: tenantId } }),
+  cancelRent: (adId) => api.put(`/advertisement/cancel-rent/${adId}`),
+  getMyAds: () => api.get('/advertisement/get-my-ads'),
+  getMyRentedAds: () => api.get('/advertisement/get-my-rented-ads')
 };
 
 export const carService = {
